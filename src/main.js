@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/styles/reset.css'
 // 1像素边框
 import './assets/styles/border.css'
+import './assets/styles/iconfont.css'
 
 Vue.config.productionTip = false
 fastClick.attach(document.body)
