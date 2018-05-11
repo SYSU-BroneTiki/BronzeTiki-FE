@@ -3,7 +3,7 @@
 src目录：
 
 ``` bash
-├─assets<br>
+├─assets
 │  └─styles             样式表目录
 │      └─iconfont       保存图标文件
 ├─pages                 保存页面
@@ -12,7 +12,7 @@ src目录：
 │  └─person             个人组件目录
 │      └─components     个人页面子组件
 └─router
-
+```
 
 # bronzetiki
 
