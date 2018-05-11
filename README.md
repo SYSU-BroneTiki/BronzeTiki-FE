@@ -2,7 +2,8 @@
 
 src目录：
 
-├─assets
+``` bash
+├─assets<br>
 │  └─styles             样式表目录
 │      └─iconfont       保存图标文件
 ├─pages                 保存页面
