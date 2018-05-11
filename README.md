@@ -3,13 +3,13 @@
 src目录：
 
 ├─assets
-│  └─styles				样式表目录
-│      └─iconfont		保存图标文件
-├─pages					保存页面
-│  ├─home				首页组件目录
-│  │  └─components		首页子组件
-│  └─person				个人组件目录
-│      └─components		个人页面子组件
+│  └─styles             样式表目录
+│      └─iconfont       保存图标文件
+├─pages                 保存页面
+│  ├─home               首页组件目录
+│  │  └─components      首页子组件
+│  └─person             个人组件目录
+│      └─components     个人页面子组件
 └─router
 
 
