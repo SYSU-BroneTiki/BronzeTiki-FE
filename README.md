@@ -1,12 +1,17 @@
 # 开发
 
-## 开发工具
+## 前置条件
 
-css预处理器: stylus
+* UI框架：element-ui
 
-单位使用rem （预设好 html font-size = 50px = 1 rem）
+* css预处理器: stylus
 
-基于移动端：iphone6/7/8 （chrome）
+* 单位使用rem （已预设 html font-size = 50px = 1 rem）
+
+* 移动端界面大小：iphone6/7/8 （chrome）
+
+* 代码：使用2空格缩进
+
 
 ## src目录：
 
