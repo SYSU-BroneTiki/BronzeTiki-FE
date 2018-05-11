@@ -1,6 +1,14 @@
-# 开发文件目录
+# 开发
 
-src目录：
+## 开发工具
+
+css预处理器: stylus
+
+单位使用rem （预设好 html font-size = 50px = 1 rem）
+
+基于移动端：iphone6/7/8 （chrome）
+
+## src目录：
 
 ``` bash
 ├─assets
