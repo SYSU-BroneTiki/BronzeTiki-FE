@@ -5,11 +5,62 @@
         <template slot="title">
           <div class="item-title-wrapper">
             <img class="item-post" src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2517753454.webp" alt="img1">
-            <div class="item-title">item-title</div>
+            <div class="item-info">
+              <div class="item-title">Name of Movie</div>
+              <div class="item-classification">Action|Adventure|Science</div>
+              <div class="item-price">75 RMB</div>
+              <div class="item-rating">
+                <span class="iconfont like">&#xe874;</span>
+                <span> 95% </span>
+                <span class="iconfont dislike">&#xe61e;</span>
+                <span> 5% </span>
+              </div>
+            </div>
           </div>
         </template>
         <div class="item-content">item-content</div>
       </el-collapse-item>
+
+      <el-collapse-item class="item">
+        <template slot="title">
+          <div class="item-title-wrapper">
+            <img class="item-post" src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2517753454.webp" alt="img1">
+            <div class="item-info">
+              <div class="item-title">Name of Movie</div>
+              <div class="item-classification">Action|Adventure|Science</div>
+              <div class="item-price">75 RMB</div>
+              <div class="item-rating">
+                <span class="iconfont like">&#xe874;</span>
+                <span> 95% </span>
+                <span class="iconfont dislike">&#xe61e;</span>
+                <span> 5% </span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="item-content">item-content</div>
+      </el-collapse-item>
+
+      <el-collapse-item class="item">
+        <template slot="title">
+          <div class="item-title-wrapper">
+            <img class="item-post" src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2517753454.webp" alt="img1">
+            <div class="item-info">
+              <div class="item-title">Name of Movie</div>
+              <div class="item-classification">Action|Adventure|Science</div>
+              <div class="item-price">75 RMB</div>
+              <div class="item-rating">
+                <span class="iconfont like">&#xe874;</span>
+                <span> 95% </span>
+                <span class="iconfont dislike">&#xe61e;</span>
+                <span> 5% </span>
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="item-content">item-content</div>
+      </el-collapse-item>
+
     </el-collapse>
   </div>
 </template>
@@ -24,16 +75,55 @@ export default {
 <style lang="stylus" scoped>
   .item >>> .el-collapse-item__header
     height: 3.3rem !important
-    background: lightgreen !important
-  .item-post
+    background: white !important
+    border-radius: 0.1rem
+    margin-bottom: 0.02rem
+  .item
+    margin-bottom: 0.8rem
+  .item-title-wrapper
     position: relative
-    left: 0.3rem
-    bottom: 0.7rem
+  .item-post
+    position: absolute
+    left: 0.2rem
+    bottom: 0.5rem
     width: 2.92rem
     height: 3.66rem
     border-radius: 0.2rem
-  .item-title
+  .item-info
+    overflow: hidden
     display: inline-block
-    margin-left: 0.5rem
-    background: yellow
+    height: 3rem
+    width: 40%
+    margin-left: 3.38rem
+    // background: yellow
+    .item-title
+      font-weight: bold
+      font-size:0.38rem
+      line-height: 0.40rem
+      margin-top: 0.4rem
+      margin-left: 0.2rem
+      // background: red
+    .item-classification
+      font-weight: lighter
+      margin-top: 0.1rem
+      margin-left: 0.2rem
+      font-size: 0.2rem
+      line-height: 0.3rem
+    .item-price
+      color: #fff
+      background: #67C23A
+      border-radius: 0.2rem
+      text-align: center
+      width: 1.4rem
+      margin-top: 0.1rem
+      margin-left: 0.2rem
+      font-size: 0.2rem
+      line-height: 0.4rem
+    .item-rating
+      font-size: 0.3rem
+      line-height: 0.4rem
+      margin-top: 0.4rem
+      margin-left: 0.2rem
+      .like
+        color: red
 </style>
