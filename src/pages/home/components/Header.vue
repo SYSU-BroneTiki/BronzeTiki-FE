@@ -1,9 +1,15 @@
 <template>
-  <div class="header">
-    <div class="header-left">header-left</div>
-    <div class="header-title">header-title</div>
-    <div class="header-right">header-right</div>
-  </div>
+  <el-row class="header-row">
+    <el-col class="header-left" :span="4">
+      <i class="el-icon-back"></i>
+    </el-col>
+    <el-col class="header-title" :span="16">
+      首页
+    </el-col>
+    <el-col class="header-right" :span="4">
+      <i class="el-icon-search"></i>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -12,15 +18,15 @@ export default {
 }
 </script>
 
+<!-- html font-size = 50px = 1rem -->
 <style lang="stylus" scoped>
-  // html font-size = 50px = 1rem
-  .header
-    height: 1.8rem
-    background: #005DFB
-    .header-left
-      background: red
+  @import '../../../assets/variables.styl'
+  .header-row
+    background: $bgColor
+    font-size: 0.6rem
+    text-align: center
+    padding-top: 0.5rem
+    padding-bottom: 0.5rem
     .header-title
-      background: yellow
-    .header-right
-      background: gray
+      font-size: 0.45rem
 </style>

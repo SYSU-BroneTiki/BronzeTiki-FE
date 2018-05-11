@@ -1,19 +1,35 @@
 <template>
   <div class="home">
-    <home-header></home-header>
+    <el-container>
+      <el-header>
+        <home-header></home-header>
+      </el-header>
+      <el-main>
+        <home-list></home-list>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
 import HomeHeader from './components/Header'
+import HomeList from './components/List'
 export default {
   name: 'Home',
   components: {
-    HomeHeader
+    HomeHeader,
+    HomeList
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+  .el-header
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    color: #fff
+    padding: 0
+    margin-bottom: 0.6rem
+  .el-main
+    padding: 0.1rem
+    overflow: visible
 </style>
