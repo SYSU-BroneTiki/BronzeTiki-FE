@@ -18,56 +18,22 @@
             </div>
           </div>
         </template>
-        <div class="item-content">item-content</div>
+        <!-- <screen></screen> -->
+        <seat></seat>
       </el-collapse-item>
-
-      <el-collapse-item class="item">
-        <template slot="title">
-          <div class="item-title-wrapper">
-            <img class="item-post" src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2517753454.webp" alt="img1">
-            <div class="item-info">
-              <div class="item-title">Name of Movie</div>
-              <div class="item-classification">Action|Adventure|Science</div>
-              <div class="item-price">75 RMB</div>
-              <div class="item-rating">
-                <span class="iconfont like">&#xe874;</span>
-                <span> 95% </span>
-                <span class="iconfont dislike">&#xe61e;</span>
-                <span> 5% </span>
-              </div>
-            </div>
-          </div>
-        </template>
-        <div class="item-content">item-content</div>
-      </el-collapse-item>
-
-      <el-collapse-item class="item">
-        <template slot="title">
-          <div class="item-title-wrapper">
-            <img class="item-post" src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2517753454.webp" alt="img1">
-            <div class="item-info">
-              <div class="item-title">Name of Movie</div>
-              <div class="item-classification">Action|Adventure|Science</div>
-              <div class="item-price">75 RMB</div>
-              <div class="item-rating">
-                <span class="iconfont like">&#xe874;</span>
-                <span> 95% </span>
-                <span class="iconfont dislike">&#xe61e;</span>
-                <span> 5% </span>
-              </div>
-            </div>
-          </div>
-        </template>
-        <div class="item-content">item-content</div>
-      </el-collapse-item>
-
     </el-collapse>
   </div>
 </template>
 
 <script>
+import Screen from './Screen'
+import Seat from './Seat'
 export default {
-  name: 'HomeList'
+  name: 'HomeList',
+  components: {
+    Screen,
+    Seat
+  }
 }
 </script>
 
