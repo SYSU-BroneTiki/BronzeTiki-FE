@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/home/Home.vue'
+import Movie from '@/pages/movie/movie.vue'
 import Person from '@/pages/person/Person.vue'
 import SignIn from '@/pages/signin/SignIn.vue'
 
@@ -20,6 +21,10 @@ export default new Router({
       path: '/signin',
       name: 'SignIn',
       component: SignIn
+    }, {
+      path: '/movie',
+      name: 'Movie',
+      component: Movie
     }
   ]
 })
