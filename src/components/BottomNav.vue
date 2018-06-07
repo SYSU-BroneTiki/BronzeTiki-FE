@@ -25,6 +25,6 @@ export default {
       width: 50%
       color: #000
       text-align: center
-      font-size: 1rem
-      line-height: 1.2rem
+      font-size: 0.6rem
+      line-height: 0.8rem
 </style>
