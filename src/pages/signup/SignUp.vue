@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="Header">
-      <p>Sign In</p>
+      <p>Sign Up</p>
       <p>Welcome to BronzeTiki</p>
     </div>
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
@@ -10,6 +10,9 @@
       </el-form-item>
       <el-form-item label="Password" prop="pass">
         <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="RePassword" prop="checkPass">
+        <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">Submit</el-button>
@@ -20,7 +23,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -43,6 +45,15 @@ export default {
         callback()
       }
     }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.ruleForm2.pass) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       ruleForm2: {
         isSignIn: false,
@@ -56,6 +67,9 @@ export default {
         ],
         pass: [
           { validator: validatePass, trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' }
         ]
       }
     }
@@ -73,34 +87,6 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    },
-    signIn () {
-      if (this.ruleForm2.username !== '' && this.ruleForm2.pass !== '') {
-        this.toSignIn()
-      }
-    },
-    toSignIn () {
-      // let password_sha = this.ruleForm2.pass
-      // let password_sha = hex_sha1(hex_sha1(this.ruleForm2.pass))
-
-      // let signInParam = {
-      //   username: this.ruleForm2.username,
-      //   password: password_sha
-      // }
-
-      // this.ruleForm2.isSignIn = true
-
-      // request to backend
-
-      //
-
-      // setTimeout(() => {
-      //   let expireDays = 1000 * 60 * 60 * 24 * 15
-      //   this.setCookie('session', 'blabla...', expireDays)
-      //   this.ruleForm2.isSignIn = false;
-      //   this.$router.push('/Person')
-      // }, 3000)
-      this.$router.push('/Person')
     }
   }
 }
