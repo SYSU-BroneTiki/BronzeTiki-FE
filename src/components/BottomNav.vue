@@ -17,13 +17,17 @@ export default {
 
 <style lang="stylus" scoped>
   .wrapper
-    color: #000
+    background-color: #00B6F0
     font-size: 0
+    position: fixed
+    left: 0
+    right: 0
+    bottom: 0
     .icon-left
     .icon-right
       display: inline-block
       width: 50%
-      color: #000
+      color: #fff
       text-align: center
       font-size: 0.6rem
       line-height: 0.8rem
