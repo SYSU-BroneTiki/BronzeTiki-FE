@@ -25,6 +25,17 @@
     </el-row>
     <el-row class="item">
       <el-col :span="4" class="item-icon">
+        <i class="el-icon-mobile-phone"></i>
+      </el-col>
+      <el-col :span="15">
+        <p>My balance</p>
+      </el-col>
+      <el-col :span="5" class="item-jump-icon">
+        <el-badge class="mark" :value="1121" />
+      </el-col>
+    </el-row>
+    <el-row class="item">
+      <el-col :span="4" class="item-icon">
         <i class="el-icon-star-off"></i>
       </el-col>
       <el-col :span="16">
