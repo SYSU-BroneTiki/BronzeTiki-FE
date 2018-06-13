@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <router-link to="/home">
+    <router-link to="/">
       <span class="iconfont icon-left">&#xe62e;</span>
     </router-link>
-    <router-link to="/">
+    <router-link to="/person">
       <span class="iconfont icon-right">&#xe62f;</span>
     </router-link>
   </div>

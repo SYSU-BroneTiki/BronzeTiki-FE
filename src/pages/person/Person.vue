@@ -1,101 +1,108 @@
 <template>
   <div class="container">
-    <el-row>
-      <el-col :span="24">
-        <div class="header">
-          <p>Mine</p>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="user-info">
-      <el-col :span="6" class="user-info-item">
-          <div class="avatar">
-            <img src="http://www.lzshuli.com/game_images/165336033.jpeg">
+    <div class="content">
+      <el-row>
+        <el-col :span="24">
+          <div class="header">
+            <p>Mine</p>
           </div>
-      </el-col>
-      <el-col :span="14" class="user-info-item">
-        <p class="nickname">name</p>
-        <p class="description">description</p>
-      </el-col>
-      <el-col :span="4" class="user-info-item">
-        <div @click.stop="feedback">
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="item">
-      <el-col :span="4" class="item-icon">
-        <i class="el-icon-mobile-phone"></i>
-      </el-col>
-      <el-col :span="15">
-        <p>My balance</p>
-      </el-col>
-      <el-col :span="5" class="item-jump-icon">
-        <el-badge class="mark" :value="1121" />
-      </el-col>
-    </el-row>
-    <el-row class="item">
-      <el-col :span="4" class="item-icon">
-        <i class="el-icon-star-off"></i>
-      </el-col>
-      <el-col :span="16">
-        <p>My likes</p>
-      </el-col>
-      <el-col :span="4" class="item-jump-icon">
-        <div @click.stop="feedback">
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="item">
-      <el-col :span="4" class="item-icon">
-        <i class="el-icon-view"></i>
-      </el-col>
-      <el-col :span="16">
-        <p>My record</p>
-      </el-col>
-      <el-col :span="4" class="item-jump-icon">
-        <div @click.stop="feedback">
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="item">
-      <el-col :span="4" class="item-icon">
-        <i class="el-icon-setting"></i>
-      </el-col>
-      <el-col :span="16">
-        Setting
-      </el-col>
-      <el-col :span="4" class="item-jump-icon">
-        <div @click.stop="feedback">
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="item">
-      <el-col :span="4" class="item-icon">
-        <i class="el-icon-bell"></i>
-      </el-col>
-      <el-col :span="16">
-        Feedback
-      </el-col>
-      <el-col :span="4" class="item-jump-icon">
-        <div @click.stop="feedback">
-          <i class="el-icon-arrow-right"></i>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row class="exit">
-      <el-col :span="24">
-        <el-button type="danger" v-on:click="feedback">sign out</el-button>
-      </el-col>
-    </el-row>
+        </el-col>
+      </el-row>
+      <el-row class="user-info">
+        <el-col :span="6" class="user-info-item">
+            <div class="avatar">
+              <img src="http://www.lzshuli.com/game_images/165336033.jpeg">
+            </div>
+        </el-col>
+        <el-col :span="14" class="user-info-item">
+          <p class="nickname">name</p>
+          <p class="description">description</p>
+        </el-col>
+        <el-col :span="4" class="user-info-item">
+          <div @click.stop="feedback">
+            <i class="el-icon-arrow-right"></i>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row class="item">
+        <el-col :span="4" class="item-icon">
+          <i class="el-icon-mobile-phone"></i>
+        </el-col>
+        <el-col :span="15">
+          <p>My balance</p>
+        </el-col>
+        <el-col :span="5" class="item-jump-icon">
+          <el-badge class="mark" :value="1121" />
+        </el-col>
+      </el-row>
+      <el-row class="item">
+        <el-col :span="4" class="item-icon">
+          <i class="el-icon-star-off"></i>
+        </el-col>
+        <el-col :span="16">
+          <p>My likes</p>
+        </el-col>
+        <el-col :span="4" class="item-jump-icon">
+          <div @click.stop="feedback">
+            <i class="el-icon-arrow-right"></i>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row class="item">
+        <el-col :span="4" class="item-icon">
+          <i class="el-icon-view"></i>
+        </el-col>
+        <el-col :span="16">
+          <p>My record</p>
+        </el-col>
+        <el-col :span="4" class="item-jump-icon">
+          <div @click.stop="feedback">
+            <i class="el-icon-arrow-right"></i>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row class="item">
+        <el-col :span="4" class="item-icon">
+          <i class="el-icon-setting"></i>
+        </el-col>
+        <el-col :span="16">
+          Setting
+        </el-col>
+        <el-col :span="4" class="item-jump-icon">
+          <div @click.stop="feedback">
+            <i class="el-icon-arrow-right"></i>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row class="item">
+        <el-col :span="4" class="item-icon">
+          <i class="el-icon-bell"></i>
+        </el-col>
+        <el-col :span="16">
+          Feedback
+        </el-col>
+        <el-col :span="4" class="item-jump-icon">
+          <div @click.stop="feedback">
+            <i class="el-icon-arrow-right"></i>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row class="exit">
+        <el-col :span="24">
+          <el-button type="danger" v-on:click="feedback">sign out</el-button>
+        </el-col>
+      </el-row>
+    </div>
+    <bottom-nav></bottom-nav>
   </div>
 </template>
 
 <script>
+import BottomNav from '@/common/BottomNav'
 export default {
+  components: {
+    BottomNav
+  },
   data () {
     return {}
   },
@@ -121,7 +128,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .container {
+  .content {
     height 100%;
     width 100%;
   }
