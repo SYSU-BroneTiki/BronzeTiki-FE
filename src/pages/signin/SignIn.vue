@@ -64,7 +64,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$router.push('/')
+          this.toSignIn()
         } else {
           console.log('error submit!!')
           return false
@@ -74,33 +74,7 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
-    signIn () {
-      if (this.ruleForm2.username !== '' && this.ruleForm2.pass !== '') {
-        this.toSignIn()
-      }
-    },
     toSignIn () {
-      // let password_sha = this.ruleForm2.pass
-      // let password_sha = hex_sha1(hex_sha1(this.ruleForm2.pass))
-
-      // let signInParam = {
-      //   username: this.ruleForm2.username,
-      //   password: password_sha
-      // }
-
-      // this.ruleForm2.isSignIn = true
-
-      // request to backend
-
-      //
-
-      // setTimeout(() => {
-      //   let expireDays = 1000 * 60 * 60 * 24 * 15
-      //   this.setCookie('session', 'blabla...', expireDays)
-      //   this.ruleForm2.isSignIn = false;
-      //   this.$router.push('/Person')
-      // }, 3000)
-      this.$router.push('/Person')
     }
   }
 }
