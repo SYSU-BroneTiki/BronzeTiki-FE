@@ -88,7 +88,7 @@ export default {
       // request to backend
       this.$http.post( '119.29.13.173:8080/api/users/login', {
   		param: loginParam).then((response) => {
-        if(response.data.code == 1){
+        if(response.data.code == 1) {
           let expireDays = 1000 * 60 * 60 * 24 * 15;
           this.setCookie('session', response.data.session, expireDays);
           //登录成功后
