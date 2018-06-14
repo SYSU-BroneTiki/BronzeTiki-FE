@@ -3,7 +3,9 @@
     <header class="navbar">
       <el-row class="header-row">
         <el-col class="header-left" :span="4">
-          <i class="el-icon-back"></i>
+          <router-link to="/" tag="div">
+            <i class="el-icon-back"></i>
+          </router-link>
         </el-col>
         <el-col class="header-title" :span="16">电影详情</el-col>
       </el-row>
@@ -11,40 +13,66 @@
     <section class="info">
       <el-row>
         <el-col :span="16" class="left">
-          <h1 class="title">超时空同居</h1>
+          <h1 class="title">{{detail.name}}</h1>
           <p class="rating-wrap">
-              <el-rate class="rating" v-model="score" disabled show-score text-color="#000"></el-rate>
+              <el-rate class="rating" v-model="detail.rating" disabled show-score text-color="#000"></el-rate>
               <span>(9000人评分)</span>
           </p>
           <p class="meta">
-            101分钟 / 喜剧 / 奇幻 / 苏伦(导演) / 雷佳音 / 佟丽娅 / 张衣 / 2018-05-18(中国大陆) 上映
+            {{detail.duration}}分钟 {{detail.classification}}
+            <br/>
+            {{detail.primaryActors}}
+            <br/>
+            {{detail.showtime}}上映
           </p>
         </el-col>
         <el-col :span="8" class="right">
-          <img class="cover" src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2520331478.webp" alt="movie">
+          <img class="cover" :src="detail.poster" alt="movie">
         </el-col>
       </el-row>
     </section>
     <section class="introduction">
       <h2>剧情简介</h2>
-      <p>来自2018年谷小焦（佟丽娅 饰）与1999年陆鸣（雷佳音 饰），两人时空重叠意外住在同一个房间。从互相嫌弃到试图“共谋大业”，阴差阳错发生了一系列好笑的事情。乐在其中的两人并不知道操控这一切的神秘人竟是想要去2037年“投机取巧”的2018年的……</p>
+      <p>{{detail.description}}</p>
     </section>
     <section class="comment">
       <h2>评论</h2>
     </section>
-    <footer class="buy">
-      <div class="buy-btn">立即购票</div>
+    <footer class="buy" v-show="detail.status">
+      <router-link :to="'/screen/'+detail.id" tag="div">
+        <div class="buy-btn">立即购票</div>
+      </router-link>
     </footer>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'Movie',
+  name: 'MovieDetail',
   data () {
     return {
-      score: 5.0
+      detail: {}
     }
+  },
+  methods: {
+    getMovieDetail () {
+      console.log('Get Movie Detail ' + this.$route.params.id)
+      axios.get('/api/detail.json', {
+        params: {
+          id: this.$route.params.id
+        }
+      }).then(this.handleGetMovieDetailSucc)
+    },
+    handleGetMovieDetailSucc (res) {
+      res = res.data
+      if (res.ret && res.data) {
+        this.detail = res.data
+      }
+    }
+  },
+  mounted () {
+    this.getMovieDetail()
   }
 }
 </script>

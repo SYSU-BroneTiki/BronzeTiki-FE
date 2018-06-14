@@ -3,14 +3,16 @@
     <header class="navbar">
       <el-row class="header-row">
         <el-col class="header-left" :span="4">
-          <i class="el-icon-back"></i>
+          <router-link :to="'/screen/'+screenId" tag="div">
+            <i class="el-icon-back"></i>
+          </router-link>
         </el-col>
         <el-col class="header-title" :span="16">选座</el-col>
       </el-row>
     </header>
     <section class="play-info">
-      <div>2018-08-08 14:00</div>
-      <div>4号厅</div>
+      <div>{{screenDate}} {{screenBegin}}</div>
+      <div>{{screenHall}}号厅</div>
     </section>
     <section class="seat-table">
       <div class="front-screen">放映屏幕</div>
@@ -53,13 +55,44 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Seat',
   data () {
     return {
-      rows: 8,
-      cols: 10
+      screenId: 0,
+      screenDate: '',
+      screenBegin: '',
+      screenHall: 0,
+      rows: 10,
+      cols: 10,
+      seats: []
     }
+  },
+  methods: {
+    getSeats () {
+      axios.get('/api/seat.json', {
+        params: {
+          screenId: this.$route.params.screenId
+        }
+      }).then(this.handleGetSeatSucc)
+    },
+    handleGetSeatSucc (res) {
+      console.log(res)
+      res = res.data
+      if (res.ret && res.data) {
+        const tdata = res.data
+        this.screenId = tdata.screenId
+        this.screenDate = tdata.screenDate
+        this.screenBegin = tdata.screenBegin
+        this.screenHall = tdata.screenHall
+        this.seats = tdata.seats
+        console.log(this.seats)
+      }
+    }
+  },
+  mounted () {
+    this.getSeats()
   }
 }
 </script>
