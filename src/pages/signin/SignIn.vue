@@ -20,7 +20,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -64,7 +64,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$router.push('/')
+          this.toSignIn()
         } else {
           console.log('error submit!!')
           return false
@@ -74,32 +74,36 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
-    signIn () {
-      if (this.ruleForm2.username !== '' && this.ruleForm2.pass !== '') {
-        this.toSignIn()
-      }
-    },
     toSignIn () {
       // let password_sha = this.ruleForm2.pass
       // let password_sha = hex_sha1(hex_sha1(this.ruleForm2.pass))
 
-      // let signInParam = {
-      //   username: this.ruleForm2.username,
-      //   password: password_sha
-      // }
+      let signInParam = {
+        username: this.ruleForm2.username,
+        password: this.ruleForm2.pass
+      }
 
-      // this.ruleForm2.isSignIn = true
+      this.ruleForm2.isSignIn = true
 
       // request to backend
+      this.$http.post( '119.29.13.173:8080/api/users/login', {
+  		param: loginParam).then((response) => {
+        if(response.data.code == 1){
+          let expireDays = 1000 * 60 * 60 * 24 * 15;
+          this.setCookie('session', response.data.session, expireDays);
+          //登录成功后
+          this.$router.push('/user_info'); 
+        }
+	    }, (response) => {
+	        //Error
+	    });
 
-      //
-
-      // setTimeout(() => {
-      //   let expireDays = 1000 * 60 * 60 * 24 * 15
-      //   this.setCookie('session', 'blabla...', expireDays)
-      //   this.ruleForm2.isSignIn = false;
-      //   this.$router.push('/Person')
-      // }, 3000)
+      setTimeout(() => {
+        let expireDays = 1000 * 60 * 60 * 24 * 15
+        this.setCookie('session', 'blabla...', expireDays)
+        this.ruleForm2.isSignIn = false
+        this.$router.push('/Person')
+      }, 3000)
       this.$router.push('/Person')
     }
   }
