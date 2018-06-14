@@ -23,6 +23,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import qs from 'qs'
+axios.defaults.baseURL = 'http://119.29.13.173:8080'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -58,7 +61,8 @@ export default {
       ruleForm2: {
         isSignIn: false,
         username: '',
-        pass: ''
+        pass: '',
+        checkPass: ''
       },
       rules2: {
         required: true,
@@ -78,6 +82,13 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          let userInfo = {
+            username: this.ruleForm2.username,
+            password: this.ruleForm2.pass
+          }
+          axios.post('/host/api/users/register', qs.stringify(userInfo)).then(function (res) {
+            console.log(res)
+          })
           this.$router.push('/')
         } else {
           console.log('error submit!!')
