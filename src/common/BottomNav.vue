@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <router-link to="/home">
+    <router-link to="/">
       <span class="iconfont icon-left">&#xe62e;</span>
     </router-link>
-    <router-link to="/">
+    <router-link to="/person">
       <span class="iconfont icon-right">&#xe62f;</span>
     </router-link>
   </div>
@@ -17,13 +17,17 @@ export default {
 
 <style lang="stylus" scoped>
   .wrapper
-    color: #000
+    background-color: #00B6F0
     font-size: 0
+    position: fixed
+    left: 0
+    right: 0
+    bottom: 0
     .icon-left
     .icon-right
       display: inline-block
       width: 50%
-      color: #000
+      color: #fff
       text-align: center
       font-size: 0.6rem
       line-height: 0.8rem

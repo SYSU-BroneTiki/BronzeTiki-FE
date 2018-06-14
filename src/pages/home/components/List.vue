@@ -48,7 +48,7 @@ export default {
     margin-top: 1.8rem
     padding: 0.06rem
   .item
-    margin-bottom: 0.8rem
+    // margin-bottom: 0.8rem
   .item-title-wrapper
     position: relative
     .item-post
