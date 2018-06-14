@@ -6,7 +6,9 @@
       </el-col>
       <el-col class="header-title" :span="16">影片资讯</el-col>
       <el-col class="header-right" :span="4">
-        <i class="el-icon-search"></i>
+        <router-link to="/search" tag="div">
+          <i class="el-icon-search"></i>
+        </router-link>
       </el-col>
     </el-row>
   </div>

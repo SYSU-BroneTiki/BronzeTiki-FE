@@ -1,24 +1,28 @@
 <template>
   <div class="container">
     <div class="item-list">
-      <div class="item">
-        <el-row class="item-row">
-          <el-col :span="5" class="movie-post">
-            <img src="https://p0.meituan.net/128.180/movie/200526fd0facc141caeef984314f7ef8328722.jpg" alt="movie-img">
-          </el-col>
-          <el-col :span="15" class="movie-detail">
-            <el-row class="movie-title">深海越狱</el-row>
-            <el-row class="movie-rating">
-              <el-rate v-model="score" disabled ></el-rate>
-            </el-row>
-            <el-row class="movie-classification">剧情,动作,犯罪</el-row>
-            <el-row class="movie-decoration">时长：104分钟</el-row>
-            <el-row class="movie-showtime">2018-06-08大陆上映</el-row>
-          </el-col>
-          <el-col :span="4" class="movie-state">
-            <div class="state">购票</div>
-          </el-col>
-        </el-row>
+      <div class="item" v-for="movie in movies" :key="movie.id">
+        <router-link :to="'/detail/'+ movie.id" tag="div">
+          <el-row class="item-row">
+            <el-col :span="5" class="movie-post">
+              <img :src="movie.poster" alt="movie-img">
+            </el-col>
+            <el-col :span="15" class="movie-detail">
+              <el-row class="movie-title">{{movie.name}}</el-row>
+              <el-row class="movie-rating">
+                <el-rate v-model="movie.rating" disabled ></el-rate>
+              </el-row>
+              <el-row class="movie-classification">
+                <span v-for="(type, typeindex) in movie.classification" :key="typeindex">{{type}} </span>
+              </el-row>
+              <el-row class="movie-decoration">时长：{{movie.decoration}}分钟</el-row>
+              <el-row class="movie-showtime">{{movie.showtime}}大陆上映</el-row>
+            </el-col>
+            <el-col :span="4" class="movie-state">
+              <div class="state" v-if="movie.status">购票</div>
+            </el-col>
+          </el-row>
+        </router-link>
       </div>
     </div>
   </div>
@@ -27,10 +31,11 @@
 <script>
 export default {
   name: 'MovieList',
-  data () {
-    return {
-      score: 5
-    }
+  props: {
+    movies: Array
+  },
+  mounted () {
+    console.log('movie-list mounted')
   }
 }
 </script>
