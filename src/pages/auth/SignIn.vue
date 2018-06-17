@@ -20,7 +20,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -64,7 +64,13 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.toSignIn()
+          let userInfo = {
+            username: this.ruleForm2.username,
+            password: this.ruleForm2.pass
+          }
+          axios.post('/host/api/users/login', userInfo).then(function (res) {
+            this.$router.push({name: 'person', params: {username: this.ruleForm2.username}})
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -73,8 +79,6 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    },
-    toSignIn () {
     }
   }
 }

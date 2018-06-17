@@ -11,7 +11,7 @@
       <el-form-item label="Password" prop="pass">
         <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="RePassword" prop="checkPass">
+      <el-form-item label="Repeat" prop="checkPass">
         <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
@@ -24,8 +24,8 @@
 
 <script>
 import axios from 'axios'
-import qs from 'qs'
-axios.defaults.baseURL = 'http://119.29.13.173:8080'
+// import qs from 'qs'
+// axios.defaults.baseURL = 'http://119.29.13.173:8080'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -86,10 +86,13 @@ export default {
             username: this.ruleForm2.username,
             password: this.ruleForm2.pass
           }
-          axios.post('/host/api/users/register', qs.stringify(userInfo)).then(function (res) {
-            console.log(res)
+          axios.post('/host/api/users/register', userInfo).then(function (res) {
+            // register successfully
+            if (res.status === 200 && res.statusText === 'OK') {
+              this.$router.push('/signin')
+            } else {
+            }
           })
-          this.$router.push('/')
         } else {
           console.log('error submit!!')
           return false

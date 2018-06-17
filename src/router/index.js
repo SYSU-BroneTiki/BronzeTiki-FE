@@ -8,13 +8,13 @@ import MovieDetail from '@/pages/movie/MovieDetail'
 import MovieScreen from '@/pages/movie/Screen'
 import MovieSeat from '@/pages/movie/Seat'
 // 个人页面组件
-import Person from '@/pages/person/Person'
-import SignIn from '@/pages/signin/SignIn'
+import User from '@/pages/user/UserInfo'
+import SignIn from '@/pages/auth/SignIn'
 //  订单页面组件
 import Order from '@/pages/order/Order'
 // import OrderDetail from '@/pages/order/OrderDetail'
 // import OrderConfirm from '@/pages/order/OrderConfirm'
-import SignUp from '@/pages/signup/SignUp'
+import SignUp from '@/pages/auth/SignUp'
 // 搜索页面组件
 import Search from '@/pages/search/Search'
 
@@ -27,9 +27,9 @@ export default new Router({
       name: 'Home',
       component: Home
     }, {
-      path: '/person',
-      name: 'Person',
-      component: Person
+      path: '/User/:username',
+      name: 'User',
+      component: User
     }, {
       path: '/signin',
       name: 'SignIn',
