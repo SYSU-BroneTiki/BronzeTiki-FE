@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 // 首页组件
 import Home from '@/pages/home/Home'
@@ -20,16 +21,19 @@ import Search from '@/pages/search/Search'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'Home',
       component: Home
     }, {
-      path: '/User/:username',
+      path: '/user/:username',
       name: 'User',
-      component: User
+      component: User,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/signin',
       name: 'SignIn',
@@ -53,7 +57,10 @@ export default new Router({
     }, {
       path: '/order',
       name: 'Order',
-      component: Order
+      component: Order,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/search',
       name: 'Search',
@@ -61,3 +68,20 @@ export default new Router({
     }
   ]
 })
+
+// 路由守卫，未登陆时的路由跳转
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (!store.state.auth.user) {
+      next({
+        path: '/signin'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

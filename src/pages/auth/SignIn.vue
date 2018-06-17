@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">Submit</el-button>
-        <el-button @click="resetForm('ruleForm2')">Reset</el-button>
+        <el-button @click="signup">SignUp</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -21,6 +21,7 @@
 
 <script>
 import axios from 'axios'
+import md5 from 'MD5'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -29,6 +30,9 @@ export default {
         callback(new Error('Please enter username'))
       } else if (!pattern.test(value)) {
         callback(new Error('请输入3-10个字母/数字/下划线'))
+      } else if (this.usernameErrorMsg) {
+        callback(this.usernameErrorMsg)
+        this.usernameErrorMsg = ''
       } else {
         callback()
       }
@@ -39,13 +43,15 @@ export default {
         callback(new Error('Please enter password'))
       } else if (!pattern.test(value)) {
         callback(new Error('Please enter 3-20 non empty character'))
+      } else if (this.passwordErrorMsg) {
+        callback(this.passwordErrorMsg)
+        this.passwordErrorMsg = ''
       } else {
         callback()
       }
     }
     return {
       ruleForm2: {
-        isSignIn: false,
         username: '',
         pass: ''
       },
@@ -57,7 +63,9 @@ export default {
         pass: [
           { validator: validatePass, trigger: 'blur' }
         ]
-      }
+      },
+      usernameErrorMsg: '',
+      passwordErrorMsg: ''
     }
   },
   methods: {
@@ -66,10 +74,25 @@ export default {
         if (valid) {
           let userInfo = {
             username: this.ruleForm2.username,
-            password: this.ruleForm2.pass
+            password: md5(this.ruleForm2.pass)
           }
+          var that = this
           axios.post('/host/api/users/login', userInfo).then(function (res) {
-            this.$router.push({name: 'person', params: {username: this.ruleForm2.username}})
+            let message = res.data.message
+            switch (message) {
+              case 'password error':
+                this.$refs.ruleForm2.validateField('pass', message => {
+                })
+                break
+              case 'username is not exist':
+                this.$refs.ruleForm2.validateField('username', message => {
+                })
+                break
+              default:
+                that.passwordErrorMsg = 'test error'
+                that.$refs.ruleForm2.validateField('pass')
+                // that.$router.push('/signup')
+            }
           })
         } else {
           console.log('error submit!!')
@@ -79,6 +102,9 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    signup () {
+      this.$router.push('/signup')
     }
   }
 }
