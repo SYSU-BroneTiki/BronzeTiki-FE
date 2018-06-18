@@ -15,8 +15,8 @@
             </div>
         </el-col>
         <el-col :span="14" class="user-info-item">
-          <p class="nickname">name</p>
-          <p class="description">description</p>
+          <p class="nickname">{{user.nickname}}</p>
+          <p class="description">{{user.description}}</p>
         </el-col>
         <el-col :span="4" class="user-info-item">
           <div @click.stop="feedback">
@@ -32,7 +32,7 @@
           <p>My balance</p>
         </el-col>
         <el-col :span="5" class="item-jump-icon">
-          <el-badge class="mark" :value="1121" />
+          <el-badge class="mark" :value="user.balance" />
         </el-col>
       </el-row>
       <el-row class="item">
@@ -103,8 +103,10 @@ export default {
   components: {
     BottomNav
   },
-  data () {
-    return {}
+  computed: {
+    user () {
+      return this.$store.state.auth.user
+    }
   },
   methods: {
     feedback: function (event) {

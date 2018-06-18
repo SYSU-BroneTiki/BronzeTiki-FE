@@ -3,7 +3,7 @@
     <router-link to="/">
       <span class="iconfont icon-left">&#xe62e;</span>
     </router-link>
-    <router-link to="/person">
+    <router-link to="/user">
       <span class="iconfont icon-right">&#xe62f;</span>
     </router-link>
   </div>

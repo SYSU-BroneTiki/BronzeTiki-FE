@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="Header">
-      <p>Sign In</p>
+      <p>Sign Up</p>
       <p>Welcome to BronzeTiki</p>
     </div>
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
@@ -10,6 +10,9 @@
       </el-form-item>
       <el-form-item label="Password" prop="pass">
         <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="Repeat" prop="checkPass">
+        <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">Submit</el-button>
@@ -20,7 +23,9 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
+// import qs from 'qs'
+// axios.defaults.baseURL = 'http://119.29.13.173:8080'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -43,11 +48,21 @@ export default {
         callback()
       }
     }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.ruleForm2.pass) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       ruleForm2: {
         isSignIn: false,
         username: '',
-        pass: ''
+        pass: '',
+        checkPass: ''
       },
       rules2: {
         required: true,
@@ -56,6 +71,9 @@ export default {
         ],
         pass: [
           { validator: validatePass, trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' }
         ]
       }
     }
@@ -64,7 +82,17 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.toSignIn()
+          let userInfo = {
+            username: this.ruleForm2.username,
+            password: this.ruleForm2.pass
+          }
+          axios.post('/host/api/users/register', userInfo).then(function (res) {
+            // register successfully
+            if (res.status === 200 && res.statusText === 'OK') {
+              this.$router.push('/signin')
+            } else {
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -73,8 +101,6 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    },
-    toSignIn () {
     }
   }
 }

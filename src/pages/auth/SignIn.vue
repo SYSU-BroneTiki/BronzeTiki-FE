@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="Header">
-      <p>Sign Up</p>
+      <p>Sign In</p>
       <p>Welcome to BronzeTiki</p>
     </div>
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
@@ -11,18 +11,17 @@
       <el-form-item label="Password" prop="pass">
         <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="RePassword" prop="checkPass">
-        <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">Submit</el-button>
-        <el-button @click="resetForm('ruleForm2')">Reset</el-button>
+        <el-button @click="signup">SignUp</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import md5 from 'MD5'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -31,6 +30,9 @@ export default {
         callback(new Error('Please enter username'))
       } else if (!pattern.test(value)) {
         callback(new Error('请输入3-10个字母/数字/下划线'))
+      } else if (this.usernameErrorMsg) {
+        callback(this.usernameErrorMsg)
+        this.usernameErrorMsg = ''
       } else {
         callback()
       }
@@ -41,22 +43,15 @@ export default {
         callback(new Error('Please enter password'))
       } else if (!pattern.test(value)) {
         callback(new Error('Please enter 3-20 non empty character'))
-      } else {
-        callback()
-      }
-    }
-    var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'))
-      } else if (value !== this.ruleForm2.pass) {
-        callback(new Error('两次输入密码不一致!'))
+      } else if (this.passwordErrorMsg) {
+        callback(this.passwordErrorMsg)
+        this.passwordErrorMsg = ''
       } else {
         callback()
       }
     }
     return {
       ruleForm2: {
-        isSignIn: false,
         username: '',
         pass: ''
       },
@@ -67,18 +62,38 @@ export default {
         ],
         pass: [
           { validator: validatePass, trigger: 'blur' }
-        ],
-        checkPass: [
-          { validator: validatePass2, trigger: 'blur' }
         ]
-      }
+      },
+      usernameErrorMsg: '',
+      passwordErrorMsg: ''
     }
   },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$router.push('/')
+          let userInfo = {
+            username: this.ruleForm2.username,
+            password: md5(this.ruleForm2.pass)
+          }
+          var that = this
+          axios.post('/host/api/users/login', userInfo).then(function (res) {
+            let message = res.data.message
+            switch (message) {
+              case 'password error':
+                this.$refs.ruleForm2.validateField('pass', message => {
+                })
+                break
+              case 'username is not exist':
+                this.$refs.ruleForm2.validateField('username', message => {
+                })
+                break
+              default:
+                that.passwordErrorMsg = 'test error'
+                that.$refs.ruleForm2.validateField('pass')
+                // that.$router.push('/signup')
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
@@ -87,6 +102,9 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    signup () {
+      this.$router.push('/signup')
     }
   }
 }
