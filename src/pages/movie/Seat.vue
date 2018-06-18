@@ -18,10 +18,18 @@
       <div class="front-screen">放映屏幕</div>
       <div class="seat-row" v-for="i in rows" :key="i">
         <div class="row-num">{{ i }}</div>
-        <div class="seat" v-for="j in cols" :key="j">
-          <svg class="icon" aria-hidden="true">
+        <div class="seat" v-for="j in cols" :key="j" >
+          <div class="wrapper" @click="selectSeatTrigger(i, j)">
+            <svg class="icon available" aria-hidden="true" v-show="realtimeSeats[i-1][j-1] === 0">
               <use xlink:href="#icon-zuowei"></use>
-          </svg>
+            </svg>
+            <svg class="icon selected" aria-hidden="true" v-show="realtimeSeats[i-1][j-1] === 2">
+              <use xlink:href="#icon-zuoweixuanzhong"></use>
+            </svg>
+            <svg class="icon unavailable" aria-hidden="true" v-show="realtimeSeats[i-1][j-1] === 1">
+              <use xlink:href="#icon-zuoweixuanzhong1"></use>
+            </svg>
+          </div>
         </div>
       </div>
       <div class="seat-descrip">
@@ -46,11 +54,18 @@
       </div>
     </section>
     <section class="show-seats">
-      已选座位
+      <div>已选座位</div>
+      <div class="seat" v-for="(item, index) in selectedSeats" :key="index">{{ item[0]+1 }}排 {{ item[1]+1 }}座</div>
     </section>
     <footer class="confirm">
-      <div class="confirm-btn">确认选座</div>
+      <div class="confirm-btn" @click="confirmSeats">确认选座</div>
     </footer>
+    <el-dialog  title="提示" :visible.sync="centerDialogVisible" width="80%" center>
+      <span>{{ tipsInfo }}</span>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible = false">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -60,13 +75,35 @@ export default {
   name: 'Seat',
   data () {
     return {
+      rows: 10,
+      cols: 10,
       screenId: 0,
       screenDate: '',
       screenBegin: '',
       screenHall: 0,
-      rows: 10,
-      cols: 10,
-      seats: []
+      seats: [],
+      selectedSeats: [],
+      centerDialogVisible: false,
+      tipsInfo: ''
+    }
+  },
+  computed: {
+    realtimeSeats () {
+      var seatTable = []
+      const seatsLen = this.seats.length
+      seatTable.length = 10
+      for (let i = 0; i < this.rows; i++) {
+        seatTable[i] = []
+        seatTable[i].length = 10
+        for (let j = 0; j < this.cols; j++) {
+          seatTable[i][j] = (seatsLen === 0) ? 0 : this.seats[i][j]
+        }
+      }
+      for (let i = 0; i < this.selectedSeats.length; i++) {
+        const temp = this.selectedSeats[i]
+        seatTable[temp[0]][temp[1]] = 2
+      }
+      return seatTable
     }
   },
   methods: {
@@ -78,7 +115,6 @@ export default {
       }).then(this.handleGetSeatSucc)
     },
     handleGetSeatSucc (res) {
-      console.log(res)
       res = res.data
       if (res.ret && res.data) {
         const tdata = res.data
@@ -87,7 +123,50 @@ export default {
         this.screenBegin = tdata.screenBegin
         this.screenHall = tdata.screenHall
         this.seats = tdata.seats
-        console.log(this.seats)
+      }
+    },
+    selectSeatTrigger (row, col) {
+      const tSeat = [row - 1, col - 1]
+      if (this.isAvailableSeat(tSeat)) {
+        const tIndex = this.isSelectedSeat(tSeat)
+        //  已被选中的座位
+        if (tIndex > -1) {
+          this.selectedSeats.splice(tIndex, 1)
+        } else {
+        //  未被选中的座位
+          if (this.selectedSeats.length === 4) {
+            this.tipsInfo = '最多只能选择四个座位'
+            this.centerDialogVisible = true
+          } else {
+            this.selectedSeats.push(tSeat)
+          }
+        }
+      }
+    },
+    isAvailableSeat (tSeat) {
+      if (this.seats.length <= 0) {
+        return true
+      }
+      if (this.seats[tSeat[0]][tSeat[1]] === 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+    isSelectedSeat (tSeat) {
+      for (let i = 0; i < this.selectedSeats.length; i++) {
+        if (this.selectedSeats[i][0] === tSeat[0] && this.selectedSeats[i][1] === tSeat[1]) {
+          return i
+        }
+      }
+      return -1
+    },
+    confirmSeats () {
+      if (this.selectedSeats.length > 0) {
+        this.$router.push('/order')
+      } else {
+        this.tipsInfo = '请选择座位'
+        this.centerDialogVisible = true
       }
     }
   },
@@ -144,10 +223,7 @@ export default {
           height: 0.42rem
           // background-color: green
       .seat-descrip
-        .selected-seat
-          color: green
-        .reserved-seat
-          color: gray
+        margin-top: 0.3rem
     .show-seats
       margin-top: 0.3rem
       text-align: center
@@ -163,4 +239,13 @@ export default {
         margin: 0.18rem
         line-height: 0.9rem
         border-radius: 0.1rem
+    .show-seats
+      text-align: center
+      .seat
+        display: inline-block
+        font-size: 0.28rem
+        padding: 0.06rem
+        margin: 0.2rem 0.08rem
+        border-radius: 0.06rem
+        background-color: lightgrey
 </style>

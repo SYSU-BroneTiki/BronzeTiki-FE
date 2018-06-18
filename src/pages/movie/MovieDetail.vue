@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     getMovieDetail () {
-      console.log('Get Movie Detail ' + this.$route.params.id)
       axios.get('/api/detail.json', {
         params: {
           id: this.$route.params.id

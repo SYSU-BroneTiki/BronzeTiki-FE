@@ -60,7 +60,7 @@ export default {
       }).then(this.handleGetMovieScreenSucc)
     },
     handleGetMovieScreenSucc (res) {
-      console.log(res)
+      // console.log(res)
       res = res.data
       if (res.ret && res.data) {
         const tdata = res.data
