@@ -12,12 +12,11 @@ import Person from '@/pages/person/Person'
 import SignIn from '@/pages/signin/SignIn'
 //  订单页面组件
 import Order from '@/pages/order/Order'
-import OrderDetail from '@/pages/order/OrderDetail'
-import OrderConfirm from '@/pages/order/OrderConfirm'
+// import OrderDetail from '@/pages/order/OrderDetail'
+// import OrderConfirm from '@/pages/order/OrderConfirm'
 import SignUp from '@/pages/signup/SignUp'
 // 搜索页面组件
 import Search from '@/pages/search/Search'
-
 
 Vue.use(Router)
 
