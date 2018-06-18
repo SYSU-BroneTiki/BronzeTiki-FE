@@ -93,7 +93,6 @@
         </el-col>
       </el-row>
     </div>
-    <bottom-nav></bottom-nav>
   </div>
 </template>
 
@@ -130,6 +129,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  .container {
+    height 100%;
+    width 100%;
+  }
+
   .content {
     height 100%;
     width 100%;

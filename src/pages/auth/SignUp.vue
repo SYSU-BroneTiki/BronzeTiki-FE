@@ -24,8 +24,7 @@
 
 <script>
 import axios from 'axios'
-// import qs from 'qs'
-// axios.defaults.baseURL = 'http://119.29.13.173:8080'
+import DataProcess from '../../common/utils/DataProcess'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -34,6 +33,9 @@ export default {
         callback(new Error('Please enter username'))
       } else if (!pattern.test(value)) {
         callback(new Error('请输入3-10个字母/数字/下划线'))
+      } else if (this.usernameErrorMsg) {
+        callback(this.usernameErrorMsg)
+        this.usernameErrorMsg = ''
       } else {
         callback()
       }
@@ -44,6 +46,9 @@ export default {
         callback(new Error('Please enter password'))
       } else if (!pattern.test(value)) {
         callback(new Error('Please enter 3-20 non empty character'))
+      } else if (this.passwordErrorMsg) {
+        callback(this.passwordErrorMsg)
+        this.passwordErrorMsg = ''
       } else {
         callback()
       }
@@ -75,7 +80,9 @@ export default {
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
         ]
-      }
+      },
+      passwordErrorMsg: '',
+      usernameErrorMsg: ''
     }
   },
   methods: {
@@ -86,11 +93,18 @@ export default {
             username: this.ruleForm2.username,
             password: this.ruleForm2.pass
           }
-          axios.post('/host/api/users/register', userInfo).then(function (res) {
+          var that = this
+          axios.post('/host/api/users/register', DataProcess.genFormData(userInfo)).then(function (res) {
+            let message = res.data.message
             // register successfully
-            if (res.status === 200 && res.statusText === 'OK') {
-              this.$router.push('/signin')
-            } else {
+            switch (message) {
+              case 'Username existed':
+                that.usernameErrorMsg = message
+                that.$refs.ruleForm2.validateField('username')
+                break
+              default:
+                // 注册成功跳转到登陆页面
+                that.$router.push('/signin')
             }
           })
         } else {

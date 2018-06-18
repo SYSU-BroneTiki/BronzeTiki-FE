@@ -8,7 +8,9 @@
 <script>
 export default {
   name: 'App',
-  components: {
+  // 验证登陆状态
+  created () {
+    this.$store.dispatch('GET_USER_INFO')
   }
 }
 </script>

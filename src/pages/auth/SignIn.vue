@@ -21,7 +21,8 @@
 
 <script>
 import axios from 'axios'
-import md5 from 'MD5'
+// import md5 from 'MD5'
+import DataProcess from '../../common/utils/DataProcess'
 export default {
   data () {
     var validateUserName = (rule, value, callback) => {
@@ -74,24 +75,28 @@ export default {
         if (valid) {
           let userInfo = {
             username: this.ruleForm2.username,
-            password: md5(this.ruleForm2.pass)
+            password: this.ruleForm2.pass
           }
           var that = this
-          axios.post('/host/api/users/login', userInfo).then(function (res) {
+          axios.post('/host/api/users/login', DataProcess.genFormData(userInfo)).then(function (res) {
             let message = res.data.message
+            console.log(res)
             switch (message) {
-              case 'password error':
-                this.$refs.ruleForm2.validateField('pass', message => {
-                })
+              case 'Invalid password':
+                that.passwordErrorMsg = message
+                that.$refs.ruleForm2.validateField('pass')
                 break
-              case 'username is not exist':
-                this.$refs.ruleForm2.validateField('username', message => {
-                })
+              case 'Invalid username':
+                that.usernameErrorMsg = message
+                that.$refs.ruleForm2.validateField('username')
                 break
               default:
-                that.passwordErrorMsg = 'test error'
-                that.$refs.ruleForm2.validateField('pass')
-                // that.$router.push('/signup')
+                // 成功登陆的话获取信息后跳转到个人页面
+                that.$store.dispatch('GET_USER_INFO')
+                let url = '/user/' + that.$store.state.auth.user.username
+                console.log(url)
+                that.$router.push(url)
+                console.log('success')
             }
           })
         } else {
