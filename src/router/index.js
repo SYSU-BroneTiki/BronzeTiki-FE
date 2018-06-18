@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 // 首页组件
 import Home from '@/pages/home/Home'
@@ -8,28 +9,31 @@ import MovieDetail from '@/pages/movie/MovieDetail'
 import MovieScreen from '@/pages/movie/Screen'
 import MovieSeat from '@/pages/movie/Seat'
 // 个人页面组件
-import Person from '@/pages/person/Person'
-import SignIn from '@/pages/signin/SignIn'
+import User from '@/pages/user/UserInfo'
+import SignIn from '@/pages/auth/SignIn'
 //  订单页面组件
 import Order from '@/pages/order/Order'
 // import OrderDetail from '@/pages/order/OrderDetail'
 // import OrderConfirm from '@/pages/order/OrderConfirm'
-import SignUp from '@/pages/signup/SignUp'
+import SignUp from '@/pages/auth/SignUp'
 // 搜索页面组件
 import Search from '@/pages/search/Search'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
       name: 'Home',
       component: Home
     }, {
-      path: '/person',
-      name: 'Person',
-      component: Person
+      path: '/user/:username',
+      name: 'User',
+      component: User,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/signin',
       name: 'SignIn',
@@ -53,7 +57,10 @@ export default new Router({
     }, {
       path: '/order',
       name: 'Order',
-      component: Order
+      component: Order,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/search',
       name: 'Search',
@@ -61,3 +68,20 @@ export default new Router({
     }
   ]
 })
+
+// 路由守卫，未登陆时的路由跳转
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (!store.state.auth.user) {
+      next({
+        path: '/signin'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
