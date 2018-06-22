@@ -80,7 +80,6 @@ export default {
           var that = this
           axios.post('/host/api/users/login', DataProcess.genFormData(userInfo)).then(function (res) {
             let message = res.data.message
-            console.log(res)
             switch (message) {
               case 'Invalid password':
                 that.passwordErrorMsg = message
@@ -92,11 +91,10 @@ export default {
                 break
               default:
                 // 成功登陆的话获取信息后跳转到个人页面
-                that.$store.dispatch('GET_USER_INFO')
-                let url = '/user/' + that.$store.state.auth.user.username
-                console.log(url)
-                that.$router.push(url)
-                console.log('success')
+                that.$store.dispatch('GET_USER_INFO').then(() => {
+                  let url = '/user/' + that.$store.state.auth.user.username
+                  that.$router.push(url)
+                })
             }
           })
         } else {

@@ -10,11 +10,14 @@ import MovieScreen from '@/pages/movie/Screen'
 import MovieSeat from '@/pages/movie/Seat'
 // 个人页面组件
 import User from '@/pages/user/UserInfo'
-import SignIn from '@/pages/auth/SignIn'
+import UserInfoSetting from '@/pages/user/UserInfoSetting'
+import ResetPassword from '@/pages/user/ResetPassword'
+import UploadAvatar from '@/pages/user/UploadAvatar'
 //  订单页面组件
 import Order from '@/pages/order/Order'
 // import OrderDetail from '@/pages/order/OrderDetail'
 // import OrderConfirm from '@/pages/order/OrderConfirm'
+import SignIn from '@/pages/auth/SignIn'
 import SignUp from '@/pages/auth/SignUp'
 // 搜索页面组件
 import Search from '@/pages/search/Search'
@@ -27,6 +30,24 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home
+    }, {
+      path: '/user/:username/uploadAvatar',
+      component: UploadAvatar,
+      mata: {
+        requireAuth: true
+      }
+    }, {
+      path: '/user/:username/resetPassword',
+      component: ResetPassword,
+      meta: {
+        requireAuth: true
+      }
+    }, {
+      path: '/user/:username/detail',
+      component: UserInfoSetting,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/user/:username',
       name: 'User',
@@ -71,6 +92,13 @@ const router = new Router({
 
 // 路由守卫，未登陆时的路由跳转
 router.beforeEach((to, from, next) => {
+  if (to.path === '/signin' && store.state.auth.user) {
+    let url = '/user/' + store.state.auth.user.username
+    next({
+      path: url
+    })
+    return
+  }
   if (to.meta.requireAuth) {
     if (!store.state.auth.user) {
       next({

@@ -15,6 +15,14 @@ export default {
         localStorage.removeItem('user')
       }
     },
+    MODIFY_PASSWORD (state, password) {
+      state.user.password = password
+      if (user !== '') {
+        localStorage.setItem('user', JSON.stringify(user))
+      } else {
+        localStorage.removeItem('user')
+      }
+    },
     PAY (state, money) {
       state.user.money -= money
     },
@@ -30,9 +38,7 @@ export default {
     // 获取用户的信息，在服务端判断是否登陆
     GET_USER_INFO ({commit}) {
       return axios.get('/host/api/state').then((res) => {
-        console.log(res)
-        console.log(res.status)
-        if (res.status === 200) {
+        if (res.status === 200 || res.data.message === 'Online') {
           commit('SET_USER', res.data)
         } else {
           commit('SET_USER', '')
@@ -45,7 +51,7 @@ export default {
     //   })
     // },
     SIGN_OUT ({commit}) {
-      return axios.delete('/session').then(res => {
+      return axios.delete('/host/api/users/login').then(res => {
         commit('DELETE_USER')
       })
     }
