@@ -4,7 +4,7 @@
     <el-row class="user-info">
       <el-col :span="6" class="user-info-item">
         <div class="avatar" @click.stop="setAvatar">
-          <img src="http://www.lzshuli.com/game_images/165336033.jpeg">
+          <img :src="avatarUrl">
         </div>
       </el-col>
       <el-col :span="14" class="user-info-item">
@@ -69,6 +69,11 @@ export default {
           {validator: validateDescription, trigger: 'blur'}
         ]
       }
+    }
+  },
+  computed: {
+    avatarUrl () {
+      return this.$store.state.auth.user.avatar
     }
   },
   created () {

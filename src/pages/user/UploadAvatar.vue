@@ -24,9 +24,10 @@ export default {
   methods: {
     handleAvatarSuccess (res, file) {
       console.log(res)
-      // let url = res.data.avatar
-      // let avatar = ['avatar', url]
-      // this.$store.commit('UPDATE_USER', avatar)
+      let url = '/host' + res.avatar
+      let avatar = ['avatar', url]
+      this.$store.commit('UPDATE_USER', avatar)
+      this.$router.go(-1)
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'

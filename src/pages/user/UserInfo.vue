@@ -5,7 +5,7 @@
       <el-row class="user-info">
         <el-col :span="6" class="user-info-item">
             <div class="avatar">
-              <img src="http://www.lzshuli.com/game_images/165336033.jpeg">
+              <img :src="user.avatar">
             </div>
         </el-col>
         <el-col :span="14" class="user-info-item">
