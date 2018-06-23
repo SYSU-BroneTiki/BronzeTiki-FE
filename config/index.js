@@ -17,6 +17,13 @@ module.exports = {
         pathRewrite: {
           '^/host': ''
         }
+      },
+      '/host2': {
+        target: 'http://172.18.159.243:5000',
+        changeOrigin: true,
+        pathRewrite: {
+            "^/host2": ''
+        }
       }
     },
 
