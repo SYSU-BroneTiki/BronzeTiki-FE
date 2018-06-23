@@ -15,7 +15,7 @@ import ResetPassword from '@/pages/user/ResetPassword'
 import UploadAvatar from '@/pages/user/UploadAvatar'
 //  订单页面组件
 // import Order from '@/pages/order/Order'
-import OrderDetail from '@/pages/order/OrderDetail'
+// import OrderDetail from '@/pages/order/OrderDetail'
 import OrderList from '@/pages/order/OrderList'
 import OrderConfirm from '@/pages/order/OrderConfirm'
 import SignIn from '@/pages/auth/SignIn'

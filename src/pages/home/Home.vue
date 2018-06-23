@@ -30,8 +30,7 @@ export default {
       this.$store.dispatch('GET_MOVIES').then(this.getMovieListSucc)
     },
     getMovieListSucc (res) {
-      // res = res.data
-      if (res.ret) {
+      if (res) {
         const tdata = res.data
         this.movies = tdata.movies
       }
