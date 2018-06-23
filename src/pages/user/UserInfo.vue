@@ -1,17 +1,11 @@
 <template>
   <div class="container">
     <div class="content">
-      <el-row>
-        <el-col :span="24">
-          <div class="header">
-            <p>Mine</p>
-          </div>
-        </el-col>
-      </el-row>
+      <Header HeaderName="Mine"></Header>
       <el-row class="user-info">
         <el-col :span="6" class="user-info-item">
             <div class="avatar">
-              <img src="http://www.lzshuli.com/game_images/165336033.jpeg">
+              <img :src="user.avatar">
             </div>
         </el-col>
         <el-col :span="14" class="user-info-item">
@@ -19,7 +13,7 @@
           <p class="description">{{user.description}}</p>
         </el-col>
         <el-col :span="4" class="user-info-item">
-          <div @click.stop="feedback">
+          <div @click.stop="setUserInfo">
             <i class="el-icon-arrow-right"></i>
           </div>
         </el-col>
@@ -66,10 +60,10 @@
           <i class="el-icon-setting"></i>
         </el-col>
         <el-col :span="16">
-          Setting
+          Reset Password
         </el-col>
         <el-col :span="4" class="item-jump-icon">
-          <div @click.stop="feedback">
+          <div @click.stop="resetPassword">
             <i class="el-icon-arrow-right"></i>
           </div>
         </el-col>
@@ -89,7 +83,7 @@
       </el-row>
       <el-row class="exit">
         <el-col :span="24">
-          <el-button type="danger" v-on:click="feedback">sign out</el-button>
+          <el-button type="danger" v-on:click="signout">sign out</el-button>
         </el-col>
       </el-row>
     </div>
@@ -98,9 +92,11 @@
 
 <script>
 import BottomNav from '@/common/BottomNav'
+import Header from './component/Header'
 export default {
   components: {
-    BottomNav
+    BottomNav,
+    Header
   },
   computed: {
     user () {
@@ -108,49 +104,27 @@ export default {
     }
   },
   methods: {
-    feedback: function (event) {
-      if (event.cancelable) {
-        if (!event.defaultPrevented) {
-          event.preventDefault()
-        }
-      }
-      this.$alert('Please mail to xxx@xxx.com', {
-        confirmButtonText: 'confirm',
-        callback: action => {
-          this.$message({
-            type: 'info',
-            message: `action: ${action}`
-          })
-        }
+    setUserInfo: function () {
+      let url = '/user/' + this.$store.state.auth.user.username + '/detail'
+      this.$router.push(url)
+    },
+    signout: function () {
+      this.$store.dispatch('SIGN_OUT').then(() => {
+        this.$router.push('/signin')
       })
+    },
+    resetPassword: function () {
+      let url = '/user/' + this.$store.state.auth.user.username + '/resetPassword'
+      this.$router.push(url)
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .container {
-    height 100%;
-    width 100%;
-  }
-
   .content {
     height 100%;
     width 100%;
-  }
-
-  .header {
-    background #00b6f0;
-    font-size 20px;
-    color white;
-    height 50px;
-    text-align center;
-  }
-
-  .header p {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
   }
 
   .user-info {

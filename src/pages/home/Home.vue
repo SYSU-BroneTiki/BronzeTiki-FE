@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import HomeHeader from './components/Header'
 // import HomeList from './components/List'
 import MovieList from './components/MovieList'
@@ -27,11 +27,11 @@ export default {
   },
   methods: {
     getMovieList () {
-      axios.get('/api/recommend.json').then(this.getMovieListSucc)
+      this.$store.dispatch('GET_MOVIES').then(this.getMovieListSucc)
     },
     getMovieListSucc (res) {
-      res = res.data
-      if (res.ret && res.data) {
+      // res = res.data
+      if (res.ret) {
         const tdata = res.data
         this.movies = tdata.movies
       }

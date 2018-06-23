@@ -3,7 +3,7 @@
     <header class="navbar">
       <el-row>
         <el-col :span="3">
-          <router-link to="/person" tag="div">
+          <router-link to="/order-list" tag="div">
             <i class="el-icon-back"></i>
           </router-link>
         </el-col>
@@ -17,29 +17,29 @@
       支付剩余时间: 09:00
     </section>
     <section class="movie-info">
-      <el-row class="movie-name">复仇者联盟3：无限战争</el-row>
-      <el-row class="movie-time">2018-06-01 星期一 08：00</el-row>
-      <el-row class="seats">3号厅 2排4座</el-row>
+      <el-row class="movie-name">{{ movieName }}</el-row>
+      <el-row class="movie-time">{{ movieBegin }}</el-row>
+      <el-row class="seats"> {{ hall }}号厅 {{ seats }}</el-row>
     </section>
     <section class="contract-way">
       <el-row class="phone">
         <el-col :span="6" class="phone-label">手机号码</el-col>
-        <el-col :span="16" class="phone-number">13800011111</el-col>
+        <el-col :span="16" class="phone-number">{{ phone }}</el-col>
           <!-- <el-col :span="3">
             <i class="el-icon-arrow-right right-icon"></i>
-          </el-col> -->
+          </el-col> </-->
       </el-row>
     </section>
     <section class="pay-info">
       <el-row>
         <el-col :span="6" class="price-label">总价</el-col>
-        <el-col :span="16" class="price-total">￥90.00</el-col>
+        <el-col :span="16" class="price-total">￥{{ total }}</el-col>
       </el-row>
     </section>
     <footer class="price-confirm">
       <el-row>
         <el-col :span="12" class="remark">不支持退签、改票</el-col>
-        <el-col :span="12">应付<span class="pay-price">￥90.00</span></el-col>
+        <el-col :span="12">应付<span class="pay-price">￥{{ total }}</span></el-col>
       </el-row>
       <el-row>
         <div class="pay-btn">确认支付</div>
@@ -50,7 +50,33 @@
 
 <script>
 export default {
-  name: 'OrderConfirm'
+  name: 'OrderConfirm',
+  computed: {
+    orderId () {
+      return this.$store.state.order.orderInfo.orderId
+    },
+    movieName () {
+      return this.$store.state.order.orderInfo.movieName
+    },
+    movieBegin () {
+      return this.$store.state.order.orderInfo.begin
+    },
+    hall () {
+      return this.$store.state.order.orderInfo.hall
+    },
+    seats () {
+      return this.$store.state.order.orderInfo.seats
+    },
+    phone () {
+      return this.$store.state.order.orderInfo.phone
+    },
+    total () {
+      return this.$store.state.order.orderInfo.total
+    },
+    isPayed () {
+      return this.$store.state.order.orderInfo.isPayed
+    }
+  }
 }
 </script>
 

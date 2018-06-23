@@ -3,7 +3,7 @@
     <router-link to="/">
       <span class="iconfont icon-left">&#xe62e;</span>
     </router-link>
-    <router-link to=url>
+    <router-link :to="{path: '/user/' + this.$store.state.auth.user.username}">
       <span class="iconfont icon-right">&#xe62f;</span>
     </router-link>
   </div>
@@ -11,12 +11,7 @@
 
 <script>
 export default {
-  name: 'BottomNav',
-  computed: {
-    url: function () {
-      return 'user/' + this.$store.state.auth.user.username
-    }
-  }
+  name: 'BottomNav'
 }
 </script>
 

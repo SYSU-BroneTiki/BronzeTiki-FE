@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: 'Screen',
   data () {
@@ -53,15 +53,11 @@ export default {
   },
   methods: {
     getMovieScreen () {
-      axios.get('/api/screen.json', {
-        params: {
-          id: this.$route.params.movieId
-        }
-      }).then(this.handleGetMovieScreenSucc)
+      this.$store.dispatch('GET_SCREENS', this.$route.params.movieId).then(this.handleGetMovieScreenSucc)
     },
     handleGetMovieScreenSucc (res) {
       // console.log(res)
-      res = res.data
+      // res = res.data
       if (res.ret && res.data) {
         const tdata = res.data
         this.movieId = tdata.movieId

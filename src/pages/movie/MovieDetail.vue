@@ -16,7 +16,7 @@
           <h1 class="title">{{detail.name}}</h1>
           <p class="rating-wrap">
               <el-rate class="rating" v-model="detail.rating" disabled show-score text-color="#000"></el-rate>
-              <span>(9000人评分)</span>
+              <!-- <span>(9000人评分)</span> -->
           </p>
           <p class="meta">
             {{detail.duration}}分钟 {{detail.classification}}
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: 'MovieDetail',
   data () {
@@ -57,14 +57,9 @@ export default {
   },
   methods: {
     getMovieDetail () {
-      axios.get('/api/detail.json', {
-        params: {
-          id: this.$route.params.id
-        }
-      }).then(this.handleGetMovieDetailSucc)
+      this.$store.dispatch('GET_MOVIE_DETAIL', this.$route.params.movieId).then(this.handleGetMovieDetailSucc)
     },
     handleGetMovieDetailSucc (res) {
-      res = res.data
       if (res.ret && res.data) {
         this.detail = res.data
       }
