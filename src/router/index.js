@@ -14,9 +14,10 @@ import UserInfoSetting from '@/pages/user/UserInfoSetting'
 import ResetPassword from '@/pages/user/ResetPassword'
 import UploadAvatar from '@/pages/user/UploadAvatar'
 //  订单页面组件
-import Order from '@/pages/order/Order'
+// import Order from '@/pages/order/Order'
 // import OrderDetail from '@/pages/order/OrderDetail'
-// import OrderConfirm from '@/pages/order/OrderConfirm'
+import OrderList from '@/pages/order/OrderList'
+import OrderConfirm from '@/pages/order/OrderConfirm'
 import SignIn from '@/pages/auth/SignIn'
 import SignUp from '@/pages/auth/SignUp'
 // 搜索页面组件
@@ -64,7 +65,7 @@ const router = new Router({
       name: 'SignUp',
       component: SignUp
     }, {
-      path: '/detail/:id',
+      path: '/detail/:movieId',
       name: 'MovieDetail',
       component: MovieDetail
     }, {
@@ -76,9 +77,16 @@ const router = new Router({
       name: 'MovieSeat',
       component: MovieSeat
     }, {
-      path: '/order',
-      name: 'Order',
-      component: Order,
+      path: '/order-confirm',
+      name: 'OrderConfirm',
+      component: OrderConfirm,
+      meta: {
+        requireAuth: true
+      }
+    }, {
+      path: '/order-list',
+      name: 'OrderList',
+      component: OrderList,
       meta: {
         requireAuth: true
       }

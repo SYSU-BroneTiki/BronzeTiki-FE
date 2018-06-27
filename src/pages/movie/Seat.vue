@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: 'Seat',
   data () {
@@ -78,8 +78,8 @@ export default {
       rows: 10,
       cols: 10,
       screenId: 0,
-      screenDate: '',
-      screenBegin: '',
+      screenDate: '2000-01-01',
+      screenBegin: '00:00',
       screenHall: 0,
       seats: [],
       selectedSeats: [],
@@ -108,14 +108,12 @@ export default {
   },
   methods: {
     getSeats () {
-      axios.get('/api/seat.json', {
-        params: {
-          screenId: this.$route.params.screenId
-        }
+      this.$store.dispatch('GET_SEATS', {
+        screenId: this.$route.screenId
       }).then(this.handleGetSeatSucc)
     },
     handleGetSeatSucc (res) {
-      res = res.data
+      // res = res.data
       if (res.ret && res.data) {
         const tdata = res.data
         this.screenId = tdata.screenId
@@ -162,12 +160,19 @@ export default {
       return -1
     },
     confirmSeats () {
-      if (this.selectedSeats.length > 0) {
-        this.$router.push('/order')
+      if (this.selectedSeats.length > 0 && this.selectedSeats.length < 5) {
+        this.createorder()
+        this.$router.push('/order-confirm')
       } else {
         this.tipsInfo = '请选择座位'
         this.centerDialogVisible = true
       }
+    },
+    createorder () {
+      this.$store.dispatch('CREATE_ORDER', {
+        screenId: this.$route.params.screenId,
+        seats: this.selectedSeats
+      })
     }
   },
   mounted () {

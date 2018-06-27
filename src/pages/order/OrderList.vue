@@ -37,12 +37,17 @@
         </el-row>
       </div>
     </section>
+    <bottom-nav></bottom-nav>
   </div>
 </template>
 
 <script>
+import BottomNav from '@/common/BottomNav'
 export default {
-  name: 'OrderList'
+  name: 'OrderList',
+  components: {
+    BottomNav
+  }
 }
 </script>
 
