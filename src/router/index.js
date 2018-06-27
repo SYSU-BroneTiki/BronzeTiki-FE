@@ -92,7 +92,7 @@ const router = new Router({
 
 // 路由守卫，未登陆时的路由跳转
 router.beforeEach((to, from, next) => {
-  if (to.path === '/signin' && store.state.auth.user) {
+  if (to.path === '/signin' && store.state.auth.user.username) {
     let url = '/user/' + store.state.auth.user.username
     next({
       path: url
@@ -100,7 +100,7 @@ router.beforeEach((to, from, next) => {
     return
   }
   if (to.meta.requireAuth) {
-    if (!store.state.auth.user) {
+    if (!store.state.auth.user.username) {
       next({
         path: '/signin'
       })
