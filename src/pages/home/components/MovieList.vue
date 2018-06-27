@@ -13,6 +13,7 @@
                 <el-rate v-model="movie.rating" disabled></el-rate>
               </el-row>
               <el-row class="movie-classification">
+                <!-- <span>{{movie.classification}}</span> -->
                 <!-- <span v-for="(type, typeindex) in movie.classification" :key="typeindex">{{type}} </span> -->
                 <span>{{movie.classsfication}}</span>
               </el-row>
@@ -20,7 +21,7 @@
               <el-row class="movie-showtime">{{movie.showtime}}大陆上映</el-row>
             </el-col>
             <el-col :span="4" class="movie-state">
-              <div class="state" v-if="movie.status">购票</div>
+              <div class="state" v-if="movie.status">可预订</div>
             </el-col>
           </el-row>
         </router-link>
@@ -34,9 +35,6 @@ export default {
   name: 'MovieList',
   props: {
     movies: Array
-  },
-  mounted () {
-    console.log('movie-list mounted')
   }
 }
 </script>
