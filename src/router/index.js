@@ -30,7 +30,10 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/user/:username/uploadAvatar',
       component: UploadAvatar,
@@ -67,15 +70,24 @@ const router = new Router({
     }, {
       path: '/detail/:movieId',
       name: 'MovieDetail',
-      component: MovieDetail
+      component: MovieDetail,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/screen/:movieId',
       name: 'MovieScreen',
-      component: MovieScreen
+      component: MovieScreen,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/seat/:screenId',
       name: 'MovieSeat',
-      component: MovieSeat
+      component: MovieSeat,
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/order-confirm',
       name: 'OrderConfirm',

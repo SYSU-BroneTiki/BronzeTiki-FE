@@ -7,38 +7,29 @@ export default {
   },
   actions: {
     GET_MOVIES ({ commit }) {
-      // console.log('GET_MOVIES')
+      // return axios.get('/static/mock/recommend.json').then(res => {
       return axios.get('/test/api/movies').then(res => {
-        console.log(res)
-        if (res.status === 200) {
-          return res.data
-        } else {
-          return {
-            'ret': false,
-            'data': {
-              'movies': []
-            }
-          }
-        }
+        return res
       })
     },
     GET_MOVIE_DETAIL ({ commit }, movieId) {
+      // return axios.get('/static/mock/movie-detail.json').then(res => {
       return axios.get('/test/api/movies/' + movieId).then(res => {
         if (res.status === 200) {
-          console.log(res.data)
           return res.data
         }
       })
     },
     GET_SCREENS ({ commit }, movieId) {
+      // return axios.get('/static/mock/screen.json').then(res => {
       return axios.get('/test/api/screens/' + movieId).then(res => {
         if (res.status === 200) {
           return res.data
         }
       })
     },
-    GET_SEATS ({ commit }, payload) {
-      return axios.get('/static/mock/seat.json').then(res => {
+    GET_SEATS ({ commit }, screenId) {
+      return axios.get('/test/api/seats/' + screenId).then(res => {
         if (res.status === 200) {
           return res.data
         }

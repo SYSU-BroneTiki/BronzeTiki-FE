@@ -12,7 +12,7 @@
     </header>
     <section class="item-list">
       <div class="item">
-        <el-row class="count-down">支付剩余时间: 09:00</el-row>
+        <el-row class="count-down"><!-- 支付剩余时间: 09:00 --></el-row>
         <el-row class="item-detail">
           <el-col :span="5" class="item-post">
             <img class="movie-post" src="//p1.meituan.net/148.208/movie/899b0a8c57fc44e93e83b9f0dae649f1767221.jpg" alt="movie">
@@ -45,6 +45,11 @@
 import BottomNav from '@/common/BottomNav'
 export default {
   name: 'OrderList',
+  data () {
+    return {
+      orderList: []
+    }
+  },
   components: {
     BottomNav
   }

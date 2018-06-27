@@ -30,14 +30,18 @@ export default {
       this.$store.dispatch('GET_MOVIES').then(this.getMovieListSucc)
     },
     getMovieListSucc (res) {
-      if (res) {
-        const tdata = res.data
-        this.movies = tdata.movies
+      console.log(res)
+      if (res.status === 200) {
+        let tRes = res.data
+        if (tRes.ret) {
+          this.movies = tRes.data.movies
+        }
+      } else {
+        alert('电影数据获取失败')
       }
     }
   },
   mounted () {
-    console.log('home mounted')
     this.getMovieList()
   }
 }

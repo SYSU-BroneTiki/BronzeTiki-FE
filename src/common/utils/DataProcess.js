@@ -5,5 +5,10 @@ export default {
       formData.append(key, data[key])
     }
     return formData
+  },
+  packData (tData) {
+    return {
+      'data': JSON.stringify(tData)
+    }
   }
 }
