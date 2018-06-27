@@ -60,7 +60,7 @@
     <footer class="confirm">
       <div class="confirm-btn" @click="confirmSeats">确认选座</div>
     </footer>
-    <el-dialog  title="提示" :visible.sync="centerDialogVisible" width="80%" center>
+    <el-dialog  title="提示" :visible.sync="centerDialogVisible" width="80%" top="4rem" center>
       <span>{{ tipsInfo }}</span>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="centerDialogVisible = false">确定</el-button>
@@ -71,6 +71,7 @@
 
 <script>
 // import axios from 'axios'
+import DataProcess from '../../common/utils/DataProcess'
 export default {
   name: 'Seat',
   data () {
@@ -78,11 +79,12 @@ export default {
       rows: 10,
       cols: 10,
       screenId: 0,
-      screenDate: '2000-01-01',
+      screenDate: '0000-00-00',
       screenBegin: '00:00',
       screenHall: 0,
       seats: [],
       selectedSeats: [],
+      phone: '00000000000',
       centerDialogVisible: false,
       tipsInfo: ''
     }
@@ -108,9 +110,7 @@ export default {
   },
   methods: {
     getSeats () {
-      this.$store.dispatch('GET_SEATS', {
-        screenId: this.$route.screenId
-      }).then(this.handleGetSeatSucc)
+      this.$store.dispatch('GET_SEATS', this.$route.params.screenId).then(this.handleGetSeatSucc)
     },
     handleGetSeatSucc (res) {
       // res = res.data
@@ -169,10 +169,16 @@ export default {
       }
     },
     createorder () {
-      this.$store.dispatch('CREATE_ORDER', {
-        screenId: this.$route.params.screenId,
-        seats: this.selectedSeats
-      })
+      let data = {
+        data: {
+          screenId: this.$route.params.screenId,
+          seats: this.selectedSeats,
+          phone: this.phone
+        }
+      }
+      // let data = { 'data': '{ "screenId": 1, "seats": [[1, 3]], "phone": "110110110110" }' }
+      this.$store.dispatch('CREATE_ORDER', DataProcess.genFormData(data))
+      // this.$store.dispatch('CREATE_ORDER', data)
     }
   },
   mounted () {
