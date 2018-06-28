@@ -15,7 +15,6 @@ import ResetPassword from '@/pages/user/ResetPassword'
 import UploadAvatar from '@/pages/user/UploadAvatar'
 //  订单页面组件
 // import Order from '@/pages/order/Order'
-import OrderDetail from '@/pages/order/OrderDetail'
 import OrderList from '@/pages/order/OrderList'
 import OrderConfirm from '@/pages/order/OrderConfirm'
 import SignIn from '@/pages/auth/SignIn'
@@ -99,13 +98,6 @@ const router = new Router({
       path: '/order-list',
       name: 'OrderList',
       component: OrderList,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/order-detail/:orderId',
-      name: 'OrderDetail',
-      component: OrderDetail,
       meta: {
         requireAuth: true
       }
