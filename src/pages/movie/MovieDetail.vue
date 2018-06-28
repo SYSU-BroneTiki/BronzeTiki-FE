@@ -13,16 +13,22 @@
     <section class="info">
       <el-row>
         <el-col :span="16" class="left">
-          <h1 class="title">{{detail.name}}</h1>
+          <h1 class="title">
+            {{detail.name}}
+          </h1>
           <p class="rating-wrap">
               <el-rate class="rating" v-model="detail.rating" disabled show-score text-color="#000"></el-rate>
               <!-- <span>(9000人评分)</span> -->
           </p>
           <p class="meta">
-            {{detail.duration}}分钟 {{detail.classification}}
-            <br/>
+            {{detail.duration}}分钟
+          <p class="meta">
+            {{detail.classification}}
+          </p>
+          <p class="meta">
             {{detail.primaryActors}}
-            <br/>
+          </p>
+          <p class="meta">
             {{detail.showtime}}上映
           </p>
         </el-col>
@@ -67,6 +73,7 @@ export default {
   },
   mounted () {
     this.getMovieDetail()
+    // console.log(this.detail.description)
   }
 }
 </script>
@@ -76,9 +83,9 @@ export default {
     h2
       color: #aaa
   .container
-    // background-color: gray
-    margin: 0.38rem
-    padding: 0.1rem
+    section
+      margin-left: 0.28rem
+      margin-right: 0.28rem
     .navbar
       background: #00b6f0
       color: #fff
@@ -91,7 +98,7 @@ export default {
       right: 0
       z-index: 1
     .info
-      margin-top: 1rem
+      margin-top: 1.2rem
       padding-bottom: 0.1rem
       border-bottom: 0.02rem solid lightgrey
       .left
@@ -107,7 +114,7 @@ export default {
         .meta
           margin-top: 0.3rem
           font-size: 0.28rem
-          line-height: 0.5rem
+          line-height: 0.3rem
       .right
         .cover
           width: 100%
