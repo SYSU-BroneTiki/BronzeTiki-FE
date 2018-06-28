@@ -103,7 +103,7 @@ const router = new Router({
         requireAuth: true
       }
     }, {
-      path: '/order-detail',
+      path: '/order-detail/:orderId',
       name: 'OrderDetail',
       component: OrderDetail,
       meta: {
