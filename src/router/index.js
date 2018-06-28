@@ -17,7 +17,6 @@ import Record from '@/pages/user/Record'
 import ResetPayPassword from '@/pages/user/ResetPayPassword'
 //  订单页面组件
 // import Order from '@/pages/order/Order'
-// import OrderDetail from '@/pages/order/OrderDetail'
 import OrderList from '@/pages/order/OrderList'
 import OrderConfirm from '@/pages/order/OrderConfirm'
 import SignIn from '@/pages/auth/SignIn'

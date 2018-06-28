@@ -14,7 +14,7 @@
     </header>
     <div v-show="status">
       <section class="count-down">
-        <i class="el-icon-time"></i>
+        <!-- <i class="el-icon-time"></i> -->
         <!-- 支付剩余时间: 09:00 -->
       </section>
       <section class="movie-info">
@@ -27,8 +27,8 @@
       </section>
       <section class="contract-way">
         <el-row class="phone">
-<!--           <el-col :span="6" class="phone-label">手机号码</el-col>
-          <el-col :span="16" class="phone-number">{{ phone }}</el-col> -->
+          <el-col :span="6" class="phone-label">手机号码</el-col>
+          <!-- <el-col :span="16" class="phone-number">{{ phone }}</el-col> -->
             <!-- <el-col :span="3">
               <i class="el-icon-arrow-right right-icon"></i>
             </el-col> </-->
@@ -51,10 +51,9 @@
       </footer>
     </div>
     <section class="errorMsg" v-show="!status">
-        创建失败
     </section>
     <section class="passwordInput">
-      <el-dialog ref="passDialog" title="输入支付密码" :visible.sync="showPasswardInputArea" @close="clearForm" top="5rem" width="70%">
+      <el-dialog ref="passDialog" title="输入支付密码" :visible.sync="showPasswardInputArea" @close="clearForm" top="4.5rem" width="80%">
         <el-form :model="passForm" ref="passForm">
           <el-form-item prop="payPassword">
             <el-input type="password" auto-complete="off" v-model="passForm.payPassword"></el-input>
@@ -84,41 +83,44 @@ export default {
     password () {
       return this.passForm.payPassword
     },
+    orderInfo () {
+      return this.$store.state.order.orderInfo
+    },
     status () {
-      return true
-      // let tStatus = this.$store.state.order.orderInfo.status
-      // if (tStatus) {
-      //   return tStatus
-      // } else {
-      //   return false
-      // }
+      // return true
+      let tStatus = this.orderInfo.status
+      if (tStatus) {
+        return tStatus
+      } else {
+        return false
+      }
     },
     errorMessage () {
-      return this.$store.state.order.orderInfo.message
+      return this.orderInfo.message
     },
     orderId () {
-      return this.$store.state.order.orderInfo.orderId
+      return this.orderInfo.data.orderId
     },
     movieName () {
-      return this.$store.state.order.orderInfo.movieName
+      return this.orderInfo.data.movieName
     },
     movieBegin () {
-      return this.$store.state.order.orderInfo.begin
+      return this.orderInfo.data.begin
     },
     hall () {
-      return this.$store.state.order.orderInfo.hall
+      return this.orderInfo.data.hall
     },
     selectedSeats () {
-      return this.$store.state.order.orderInfo.seats
+      return this.orderInfo.data.seats
     },
     phone () {
-      return this.$store.state.order.orderInfo.phone
+      return this.orderInfo.data.phone
     },
     total () {
-      return this.$store.state.order.orderInfo.total
+      return this.orderInfo.data.total
     },
     isPayed () {
-      return this.$store.state.order.orderInfo.isPayed
+      return this.orderInfo.data.isPayed
     }
   },
   methods: {
@@ -141,9 +143,24 @@ export default {
       this.$store.dispatch('PAY_ORDER', tData).then(this.isPaySucc)
     },
     isPaySucc (res) {
-      console.log(res)
+      // console.log(res)
       if (res.ret && res.status) {
+        alert('支付成功')
         this.$router.push('/order-list')
+      }
+      if (res.ret && !res.status) {
+        switch (res.errorMessage) {
+          case 3001:
+            alert('密码错误')
+            break
+          case 3002:
+            alert('订单已失效，返回首页')
+            this.$router.push('/')
+            break
+          default:
+            alert('未知错误')
+            break
+        }
       }
     }
   }
