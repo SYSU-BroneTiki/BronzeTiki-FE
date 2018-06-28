@@ -30,7 +30,6 @@ export default {
       this.$store.dispatch('GET_MOVIES').then(this.getMovieListSucc)
     },
     getMovieListSucc (res) {
-      console.log(res)
       if (res.status === 200) {
         let tRes = res.data
         if (tRes.ret) {
