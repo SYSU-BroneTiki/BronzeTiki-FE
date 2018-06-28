@@ -8,13 +8,13 @@ export default {
   actions: {
     GET_MOVIES ({ commit }) {
       // return axios.get('/static/mock/recommend.json').then(res => {
-      return axios.get('/test/api/movies').then(res => {
+      return axios.get('/host/api/movies').then(res => {
         return res
       })
     },
     GET_MOVIE_DETAIL ({ commit }, movieId) {
       // return axios.get('/static/mock/movie-detail.json').then(res => {
-      return axios.get('/test/api/movies/' + movieId).then(res => {
+      return axios.get('/host/api/movies/' + movieId).then(res => {
         if (res.status === 200) {
           return res.data
         }
@@ -22,15 +22,16 @@ export default {
     },
     GET_SCREENS ({ commit }, movieId) {
       // return axios.get('/static/mock/screen.json').then(res => {
-      return axios.get('/test/api/screens/' + movieId).then(res => {
+      return axios.get('/host/api/screens/' + movieId).then(res => {
         if (res.status === 200) {
           return res.data
         }
       })
     },
     GET_SEATS ({ commit }, screenId) {
-      return axios.get('/test/api/seats/' + screenId).then(res => {
+      return axios.get('/host/api/seats/' + screenId).then(res => {
         if (res.status === 200) {
+          console.log(res.data)
           return res.data
         }
       })

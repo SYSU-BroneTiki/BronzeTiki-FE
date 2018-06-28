@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import DataProcess from '../../common/utils/DataProcess'
 
 export default {
   state: {
@@ -11,20 +10,34 @@ export default {
     }
   },
   actions: {
-    CREATE_ORDER ({ commit }, payload) {
-      // console.log('POST数据', tOrder)
-      console.log('POST订单数据', payload)
-      return axios.post('/test/api/orders', payload).then(res => {
+    GET_ORDERLIST ({ commit }) {
+      // return axios.get('/static/mock/order-list.json').then(res => {
+      return axios.get('/host/api/orders').then(res => {
         if (res.status === 200) {
-          console.log('订单提交返回数据', res.data)
+          return res.data
+        }
+      })
+    },
+    GET_ORDER ({ commit }, orderId) {
+      // return axios.get('/static/mock/order.json').then(res => {
+      return axios.get('/host/api/orders/' + orderId).then(res => {
+        if (res.status === 200) {
+          commit('SET_ORDER', res.data)
+        } else {
+          commit('SET_ORDER', {})
+        }
+      })
+    },
+    CREATE_ORDER ({ commit }, payload) {
+      return axios.post('/host/api/orders', payload).then(res => {
+        if (res.status === 200) {
           commit('SET_ORDER', res.data)
         }
       })
     },
     PAY_ORDER ({ commit }, payload) {
-      // return axios.patch('/test/api/orders/' + payload.orderId).then(res => {
-      return axios.get('/static/mock/pay-result.json').then(res => {
-        console.log(res)
+      // return axios.get('/static/mock/pay-result.json').then(res => {
+      return axios.patch('/host/api/orders/' + payload.orderId).then(res => {
         if (res.status === 200) {
           return res.data
         }
