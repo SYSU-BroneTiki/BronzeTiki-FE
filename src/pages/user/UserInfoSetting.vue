@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     avatarUrl () {
-      return this.$store.state.auth.user.avatar
+      return '/host' + this.$store.state.auth.user.avatar
     }
   },
   created () {

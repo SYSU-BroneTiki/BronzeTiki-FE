@@ -5,7 +5,7 @@
       <el-row class="user-info">
         <el-col :span="6" class="user-info-item">
             <div class="avatar">
-              <img :src="user.avatar">
+              <img :src="'/host' + user.avatar">
             </div>
         </el-col>
         <el-col :span="14" class="user-info-item">
@@ -26,7 +26,7 @@
           <p>My balance</p>
         </el-col>
         <el-col :span="5" class="item-jump-icon">
-          <el-badge class="mark" :value="user.balance" />
+          <el-badge class="mark" :value="user.money" />
         </el-col>
       </el-row>
       <el-row class="item">
@@ -37,7 +37,7 @@
           <p>My likes</p>
         </el-col>
         <el-col :span="4" class="item-jump-icon">
-          <div @click.stop="feedback">
+          <div @click.stop="browseLikeMovie">
             <i class="el-icon-arrow-right"></i>
           </div>
         </el-col>
@@ -47,10 +47,10 @@
           <i class="el-icon-view"></i>
         </el-col>
         <el-col :span="16">
-          <p>My record</p>
+          <p>Reset Pay Password</p>
         </el-col>
         <el-col :span="4" class="item-jump-icon">
-          <div @click.stop="feedback">
+          <div @click.stop="resetPayPassword">
             <i class="el-icon-arrow-right"></i>
           </div>
         </el-col>
@@ -73,10 +73,10 @@
           <i class="el-icon-bell"></i>
         </el-col>
         <el-col :span="16">
-          Feedback
+          My Orders
         </el-col>
         <el-col :span="4" class="item-jump-icon">
-          <div @click.stop="feedback">
+          <div @click.stop="browseMyOrders">
             <i class="el-icon-arrow-right"></i>
           </div>
         </el-col>
@@ -103,6 +103,9 @@ export default {
       return this.$store.state.auth.user
     }
   },
+  created () {
+    console.log(this.$store.state.auth.user)
+  },
   methods: {
     setUserInfo: function () {
       let url = '/user/' + this.$store.state.auth.user.username + '/detail'
@@ -113,9 +116,19 @@ export default {
         this.$router.push('/signin')
       })
     },
+    resetPayPassword: function () {
+      let url = '/user/' + this.$store.state.auth.user.username + '/resetPayPassword'
+      this.$router.push(url)
+    },
     resetPassword: function () {
       let url = '/user/' + this.$store.state.auth.user.username + '/resetPassword'
       this.$router.push(url)
+    },
+    browseLikeMovie: function () {
+
+    },
+    browseMyOrders: function () {
+      this.$router.push('/order-list')
     }
   }
 }

@@ -12,41 +12,38 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/host': {
-        target: 'http://172.18.159.243:5000',
+        target: 'http://119.29.13.173:8080',
         changeOrigin: true,
-        pathRewrite: {
-          '^/host': ''
-        }
+        pathRewrite: {'^/host': ''}
       },
       '/host2': {
         target: 'http://172.18.159.243:5000',
         changeOrigin: true,
-        pathRewrite: {
-            '^/host2': ''
-        }
+        pathRewrite: {'^/host2': ''}
       },
       '/test': {
         target: 'http://172.18.159.243:5000',
         changeOrigin: true,
-        pathRewrite: {
-            '^/test': ''
-        }
+        pathRewrite: {'^/test': ''}
       }
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: 'localhost',  // can be overwritten by process.env.HOST
+    port: 8080,  // can be overwritten by process.env.PORT, if port is in use, a
+                 // free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
-    poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
+    poll:
+        false,  // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
     useEslint: true,
-    // If true, eslint errors and warnings will also be shown in the error overlay
+    // If true, eslint errors and warnings will also be shown in the error
+    // overlay
     // in the browser.
     showEslintErrorsInOverlay: false,
 

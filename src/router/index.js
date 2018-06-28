@@ -13,6 +13,8 @@ import User from '@/pages/user/UserInfo'
 import UserInfoSetting from '@/pages/user/UserInfoSetting'
 import ResetPassword from '@/pages/user/ResetPassword'
 import UploadAvatar from '@/pages/user/UploadAvatar'
+import Record from '@/pages/user/Record'
+import ResetPayPassword from '@/pages/user/ResetPayPassword'
 //  订单页面组件
 // import Order from '@/pages/order/Order'
 // import OrderDetail from '@/pages/order/OrderDetail'
@@ -30,7 +32,10 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home,
+      component: Home
+    }, {
+      path: '/user/:username/record',
+      component: Record,
       meta: {
         requireAuth: true
       }
@@ -43,6 +48,12 @@ const router = new Router({
     }, {
       path: '/user/:username/resetPassword',
       component: ResetPassword,
+      meta: {
+        requireAuth: true
+      }
+    }, {
+      path: '/user/:username/resetPayPassword',
+      component: ResetPayPassword,
       meta: {
         requireAuth: true
       }
