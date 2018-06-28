@@ -26,7 +26,7 @@
               <el-col :span="7" class="screen-hall">{{ screen.hall }}号厅</el-col>
               <el-col :span="7" class="price">￥{{screen.price}}</el-col>
               <el-col :span="5" class="buy-btn-wrap">
-                <router-link :to="'/seat/'+screen.screenId" tag="div" v-show="buyBtnStatus(screen) === 0">
+                <router-link :to="'/seat/' + screen.screenId" tag="div" v-show="buyBtnStatus(screen) === 0">
                   <div class="buy-btn">购票</div>
                 </router-link>
                 <div class="cant-but-btn" v-show="buyBtnStatus(screen) === 1">已售完</div>
@@ -79,25 +79,22 @@ export default {
       }
     },
     handleShowScreens () {
-      DateFormat.modifyDateProto()
       let today = new Date()
       let tomorrow = new Date()
       let dayAfterTom = new Date()
       tomorrow.setDate(today.getDate() + 1)
       dayAfterTom.setDate(today.getDate() + 2)
+
       for (let i = 0; i < this.selections.length; i++) {
         let temp = (new Date(this.selections[i].date)).Format('yyyy-MM-dd')
         switch (temp) {
           case today.Format('yyyy-MM-dd'):
-            this.showScreens[0].tabDate += (' ' + today.Format('yyyy-MM-dd').substring(5))
             this.showScreens[0].screens = this.selections[i].screens
             break
           case tomorrow.Format('yyyy-MM-dd'):
-            this.showScreens[1].tabDate += (' ' + tomorrow.Format('yyyy-MM-dd').substring(5))
             this.showScreens[1].screens = this.selections[i].screens
             break
           case dayAfterTom.Format('yyyy-MM-dd'):
-            this.showScreens[2].tabDate += (' ' + dayAfterTom.Format('yyyy-MM-dd').substring(5))
             this.showScreens[2].screens = this.selections[i].screens
             break
           default:
@@ -114,15 +111,11 @@ export default {
           }
         }
       }
-      console.log(this.showScreens)
     },
     isTodayShownScreen (screen) {
       let today = new Date()
-      console.log(screen.begin)
       let screenBegin = new Date(screen.begin)
-      console.log(today.Format('yyyy-MM-dd'), screenBegin.Format('yyyy-MM-dd'))
       if (today.Format('yyyy-MM-dd') === screenBegin.Format('yyyy-MM-dd')) {
-        // console.log(today.Format('hh:mm:ss'), screenBegin.Format('hh:mm:ss'))
         if (today.Format('hh:mm:ss') > screenBegin.Format('hh:mm:ss')) {
           return true
         }
@@ -138,6 +131,17 @@ export default {
         return 2
       }
     }
+  },
+  created () {
+    DateFormat.modifyDateProto()
+    let today = new Date()
+    let tomorrow = new Date()
+    let dayAfterTom = new Date()
+    tomorrow.setDate(today.getDate() + 1)
+    dayAfterTom.setDate(today.getDate() + 2)
+    this.showScreens[0].tabDate += (' ' + today.Format('MM-dd'))
+    this.showScreens[1].tabDate += (' ' + tomorrow.Format('MM-dd'))
+    this.showScreens[2].tabDate += (' ' + dayAfterTom.Format('MM-dd'))
   },
   mounted () {
     this.getMovieScreen()

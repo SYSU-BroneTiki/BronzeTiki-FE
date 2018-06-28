@@ -106,6 +106,12 @@ export default {
         seatTable[temp[0]][temp[1]] = 2
       }
       return seatTable
+    },
+    orderStatus () {
+      return this.$store.state.order.orderInfo.status
+    },
+    createErrorMsg () {
+      return this.$store.state.order.orderInfo.message
     }
   },
   methods: {
@@ -162,7 +168,6 @@ export default {
     confirmSeats () {
       if (this.selectedSeats.length > 0 && this.selectedSeats.length < 5) {
         this.createorder()
-        this.$router.push('/order-confirm')
       } else {
         this.tipsInfo = '请选择座位'
         this.centerDialogVisible = true
@@ -170,15 +175,20 @@ export default {
     },
     createorder () {
       let data = {
-        data: {
-          screenId: this.$route.params.screenId,
-          seats: this.selectedSeats,
-          phone: this.phone
-        }
+        screenId: this.$route.params.screenId,
+        seats: this.selectedSeats,
+        phone: this.phone
       }
-      // let data = { 'data': '{ "screenId": 1, "seats": [[1, 3]], "phone": "110110110110" }' }
-      this.$store.dispatch('CREATE_ORDER', DataProcess.genFormData(data))
+      data = DataProcess.packData(data)
+      this.$store.dispatch('CREATE_ORDER', DataProcess.genFormData(data)).then(this.isSucc)
       // this.$store.dispatch('CREATE_ORDER', data)
+    },
+    isSucc () {
+      if (this.orderStatus) {
+        this.$router.push('/order-confirm')
+      } else {
+        alert('预定失败，请重试')
+      }
     }
   },
   mounted () {

@@ -39,7 +39,7 @@
       <h2>评论</h2>
     </section>
     <footer class="buy" v-show="detail.status">
-      <router-link :to="'/screen/'+detail.id" tag="div">
+      <router-link :to="'/screen/' + detail.id" tag="div">
         <div class="buy-btn">立即购票</div>
       </router-link>
     </footer>
