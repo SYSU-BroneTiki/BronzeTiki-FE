@@ -1,24 +1,26 @@
 <template>
   <div class="container">
     <Header></Header>
-    <div class="Header">
-      <p>Reset your PayPassword</p>
+    <div class="content">
+      <div class="Header">
+        <p>Reset your PayPassword</p>
+      </div>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="134px" class="demo-ruleForm">
+        <el-form-item label="Old Pay Password" prop="oldPayPassword">
+          <el-input type="password" v-model="ruleForm.oldPayPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="New Pay Password" prop="newPayPassword">
+          <el-input type="password" v-model="ruleForm.newPayPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Repeat" prop="checkPassword">
+          <el-input type="password" v-model="ruleForm.checkPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
+          <el-button @click="resetForm('ruleForm')">Reset</el-button>
+        </el-form-item>
+      </el-form>
     </div>
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="134px" class="demo-ruleForm">
-      <el-form-item label="Old Pay Password" prop="oldPayPassword">
-        <el-input type="password" v-model="ruleForm.oldPayPassword" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="New Pay Password" prop="newPayPassword">
-        <el-input type="password" v-model="ruleForm.newPayPassword" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="Repeat" prop="checkPassword">
-        <el-input type="password" v-model="ruleForm.checkPassword" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
-        <el-button @click="resetForm('ruleForm')">Reset</el-button>
-      </el-form-item>
-    </el-form>
   </div>
 </template>
 
@@ -125,7 +127,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .container {
+  .content {
     width 98%
     margin auto
   }

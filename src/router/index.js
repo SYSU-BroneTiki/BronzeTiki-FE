@@ -73,10 +73,7 @@ const router = new Router({
     }, {
       path: '/detail/:movieId',
       name: 'MovieDetail',
-      component: MovieDetail,
-      meta: {
-        requireAuth: true
-      }
+      component: MovieDetail
     }, {
       path: '/screen/:movieId',
       name: 'MovieScreen',

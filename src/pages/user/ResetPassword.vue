@@ -1,30 +1,37 @@
 <template>
   <div class="container">
-    <div class="Header">
-      <p>Reset your password</p>
+    <Header></Header>
+    <div class="content">
+      <div class="Header">
+        <p>Reset your password</p>
+      </div>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="106px" class="demo-ruleForm">
+        <el-form-item label="Old Password" prop="oldPassword">
+          <el-input type="password" v-model="ruleForm.oldPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="New Password" prop="newPassword">
+          <el-input type="password" v-model="ruleForm.newPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Repeat" prop="checkPassword">
+          <el-input type="password" v-model="ruleForm.checkPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
+          <el-button @click="resetForm('ruleForm')">Reset</el-button>
+        </el-form-item>
+      </el-form>
     </div>
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="106px" class="demo-ruleForm">
-      <el-form-item label="Old Password" prop="oldPassword">
-        <el-input type="password" v-model="ruleForm.oldPassword" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="New Password" prop="newPassword">
-        <el-input type="password" v-model="ruleForm.newPassword" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="Repeat" prop="checkPassword">
-        <el-input type="password" v-model="ruleForm.checkPassword" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">Submit</el-button>
-        <el-button @click="resetForm('ruleForm')">Reset</el-button>
-      </el-form-item>
-    </el-form>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Header from './component/Header'
 import DataProcess from '../../common/utils/DataProcess'
 export default {
+  components: {
+    Header
+  },
   data () {
     var validateOldPassword = (rule, value, callback) => {
       var pattern = /^[\w]{3,10}$/g
@@ -123,13 +130,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .container {
+  .content {
     width 90%
     margin auto
   }
 
   .Header {
-    height 200px;
+    height 150px;
     position relative;
   }
 
