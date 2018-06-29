@@ -33,9 +33,6 @@ export default {
       searchedMovies: []
     }
   },
-  created () {
-    this.searchedMovies = []
-  },
   methods: {
     submitSearchContent: function () {
       axios.get('/host/api/movies/?query=' + this.searchContent).then(res => {
@@ -49,7 +46,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .container {
     height 100%
     width 100%

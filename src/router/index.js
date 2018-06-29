@@ -11,10 +11,9 @@ import MovieSeat from '@/pages/movie/Seat'
 // 个人页面组件
 import User from '@/pages/user/UserInfo'
 import UserInfoSetting from '@/pages/user/UserInfoSetting'
+import ResetPayPassword from '@/pages/user/ResetPayPassword'
 import ResetPassword from '@/pages/user/ResetPassword'
 import UploadAvatar from '@/pages/user/UploadAvatar'
-import Record from '@/pages/user/Record'
-import ResetPayPassword from '@/pages/user/ResetPayPassword'
 //  订单页面组件
 // import Order from '@/pages/order/Order'
 import OrderList from '@/pages/order/OrderList'
@@ -33,8 +32,8 @@ const router = new Router({
       name: 'Home',
       component: Home
     }, {
-      path: '/user/:username/record',
-      component: Record,
+      path: '/user/:username/resetPayPassword',
+      component: ResetPayPassword,
       meta: {
         requireAuth: true
       }
@@ -47,12 +46,6 @@ const router = new Router({
     }, {
       path: '/user/:username/resetPassword',
       component: ResetPassword,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/user/:username/resetPayPassword',
-      component: ResetPayPassword,
       meta: {
         requireAuth: true
       }
