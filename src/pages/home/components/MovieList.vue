@@ -15,7 +15,7 @@
               <el-row class="movie-classification">
                 <!-- <span>{{movie.classification}}</span> -->
                 <!-- <span v-for="(type, typeindex) in movie.classification" :key="typeindex">{{type}} </span> -->
-                <span>{{movie.classsfication}}</span>
+                <span>{{movie.classification}}</span>
               </el-row>
               <el-row class="movie-duration">时长：{{movie.duration}}分钟</el-row>
               <el-row class="movie-showtime">{{movie.showtime}}大陆上映</el-row>

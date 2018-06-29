@@ -37,6 +37,7 @@
     </section>
     <section class="comment">
       <h2>评论</h2>
+      <comment></comment>
     </section>
     <footer class="buy" v-show="detail.status">
       <router-link :to="'/screen/' + detail.id" tag="div">
@@ -48,8 +49,12 @@
 
 <script>
 // import axios from 'axios'
+import comment from '../comment/comment'
 export default {
   name: 'MovieDetail',
+  components: {
+    comment
+  },
   data () {
     return {
       detail: {}
@@ -78,7 +83,7 @@ export default {
   .container
     // background-color: gray
     margin: 0.38rem
-    padding: 0.1rem
+    padding: 2px
     .navbar
       background: #00b6f0
       color: #fff
@@ -119,12 +124,12 @@ export default {
         font-size: 0.3rem
         line-height: 0.45rem
     .comment
-      margin-top: 0.2rem
+      margin-top: 0.1rem
     .buy
-      position: fixed
-      left: 0
-      right: 0
-      bottom: 0
+      // position: fixed
+      // left: 0
+      // right: 0
+      // bottom: 0
       .buy-btn
         margin: 0.18rem
         color: #fff
