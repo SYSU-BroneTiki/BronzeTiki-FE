@@ -9,7 +9,9 @@ export default {
     GET_MOVIES ({ commit }) {
       // return axios.get('/static/mock/recommend.json').then(res => {
       return axios.get('/host/api/movies').then(res => {
-        return res
+        if (res.status === 200) {
+          return res
+        }
       })
     },
     GET_MOVIE_DETAIL ({ commit }, movieId) {
