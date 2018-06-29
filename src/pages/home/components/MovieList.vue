@@ -21,7 +21,7 @@
               <el-row class="movie-showtime">{{movie.showtime}}大陆上映</el-row>
             </el-col>
             <el-col :span="4" class="movie-state">
-              <div class="state" v-show="movie.status">可预订</div>
+              <div class="state" v-if="movie.status">可预订</div>
             </el-col>
           </el-row>
         </router-link>
