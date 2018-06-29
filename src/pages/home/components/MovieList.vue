@@ -15,13 +15,13 @@
               <el-row class="movie-classification">
                 <!-- <span>{{movie.classification}}</span> -->
                 <!-- <span v-for="(type, typeindex) in movie.classification" :key="typeindex">{{type}} </span> -->
-                <span>{{movie.classsfication}}</span>
+                <span>{{movie.classification}}</span>
               </el-row>
               <el-row class="movie-duration">时长：{{movie.duration}}分钟</el-row>
               <el-row class="movie-showtime">{{movie.showtime}}大陆上映</el-row>
             </el-col>
             <el-col :span="4" class="movie-state">
-              <div class="state" v-if="movie.status">可预订</div>
+              <div class="state" v-show="movie.status">可预订</div>
             </el-col>
           </el-row>
         </router-link>
