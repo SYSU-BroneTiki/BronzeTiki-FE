@@ -24,8 +24,7 @@ export default {
   methods: {
     handleAvatarSuccess (res, file) {
       console.log(res)
-      let url = 'http://119.29.13.173:8080' + res.avatar
-      let avatar = ['avatar', url]
+      let avatar = ['avatar', res.avatar]
       this.$store.commit('UPDATE_USER', avatar)
       this.$router.go(-1)
     },

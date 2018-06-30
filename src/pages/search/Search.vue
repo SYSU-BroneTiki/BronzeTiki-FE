@@ -37,8 +37,10 @@ export default {
     submitSearchContent: function () {
       axios.get('/api/search?query=' + this.searchContent).then(res => {
         console.log(res)
-        if (res.status === 200) {
+        if (res.data.message !== 'no result') {
           this.searchedMovies = res.data.movies
+        } else {
+          this.searchedMovies = []
         }
       })
     }
