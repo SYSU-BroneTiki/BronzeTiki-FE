@@ -4,6 +4,12 @@ export default {
   state: {
   },
   mutations: {
+    SET_MOVIE_DETAIL (state, detail) {
+      state.detail = detail.data
+    },
+    UPDATE_MOVIE_COMMENTS (state, newComment) {
+      state.detail.comments.push(newComment)
+    }
   },
   actions: {
     GET_MOVIES ({ commit }) {
@@ -16,6 +22,7 @@ export default {
       // return axios.get('/static/mock/movie-detail.json').then(res => {
       return axios.get('/host/api/movies/' + movieId).then(res => {
         if (res.status === 200) {
+          commit('SET_MOVIE_DETAIL', res.data)
           return res.data
         }
       })
@@ -35,6 +42,9 @@ export default {
           return res.data
         }
       })
+    },
+    UPDATE_MOVIE_COMMENTS ({ commit }, newComment) {
+      commit('UPDATE_MOVIE_COMMENTS', newComment)
     }
   }
 }

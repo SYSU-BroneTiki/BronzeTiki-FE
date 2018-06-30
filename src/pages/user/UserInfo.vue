@@ -104,7 +104,7 @@ export default {
     }
   },
   created () {
-    console.log(this.$store.state.auth.user)
+    // console.log(this.$store.state.auth.user)
   },
   methods: {
     setUserInfo: function () {

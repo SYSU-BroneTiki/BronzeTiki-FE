@@ -56,6 +56,7 @@
 <script>
 // import axios from 'axios'
 import comment from '../comment/comment'
+import store from '../../store'
 export default {
   name: 'MovieDetail',
   components: {
@@ -76,8 +77,12 @@ export default {
       }
     }
   },
+  beforeRouteEnter (to, from, next) {
+    store.dispatch('GET_MOVIE_DETAIL', to.params.movieId).then(next)
+  },
   mounted () {
-    this.getMovieDetail()
+    this.detail = this.$store.state.movie.detail
+    console.log(this.detail)
     // console.log(this.detail.description)
   }
 }

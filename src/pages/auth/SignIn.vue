@@ -1,29 +1,36 @@
 <template>
   <div class="container">
-    <div class="Header">
-      <p>Sign In</p>
-      <p>Welcome to BronzeTiki</p>
+    <Header></Header>
+    <div class="content">
+      <div class="Header">
+        <p>Sign In</p>
+        <p>Welcome to BronzeTiki</p>
+      </div>
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="UserName" prop="username">
+          <el-input v-model="ruleForm2.username" auto-complete="on"></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="pass">
+          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm2')">Submit</el-button>
+          <el-button @click="signup">SignUp</el-button>
+        </el-form-item>
+      </el-form>
     </div>
-    <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="UserName" prop="username">
-        <el-input v-model="ruleForm2.username" auto-complete="on"></el-input>
-      </el-form-item>
-      <el-form-item label="Password" prop="pass">
-        <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm2')">Submit</el-button>
-        <el-button @click="signup">SignUp</el-button>
-      </el-form-item>
-    </el-form>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Header from '../user/component/Header'
 // import md5 from 'MD5'
 import DataProcess from '../../common/utils/DataProcess'
 export default {
+  components: {
+    Header
+  },
   data () {
     var validateUserName = (rule, value, callback) => {
       var pattern = /^[\w]{3,10}$/g
@@ -114,7 +121,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .container {
+  .content {
     width 90%
     margin auto
   }

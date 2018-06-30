@@ -1,6 +1,6 @@
 <template>
   <div class="comment-list">
-    <div class="item" v-for="(item, index) in currentComment" :key="currentPage * 3 + index">
+    <div class="item" v-for="(item, index) in currentComment" :key="currentPage * 3 + index" v-show="currentPage * 3 + index < comments.length">
       <el-row>
         <el-col :span="4">
           <div class="username">{{item.username}}</div>
@@ -28,9 +28,12 @@
         v-model="myComment">
       </el-input>
     </el-row>
-    <el-row class="submit-button">
+    <div class="rating">
+      <el-rate v-model="rating"></el-rate>
+    </div>
+    <div class="submit-button">
       <el-button class="comment-button" size="mini" @click="submitComment">comment</el-button>
-    </el-row>
+    </div>
   </div>
 </template>
 
@@ -40,72 +43,53 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      comments: [{
-        username: 'test1',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }, {
-        username: 'test2',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }, {
-        username: 'test3',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }, {
-        username: 'test4',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }, {
-        username: 'test5',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }, {
-        username: 'test6',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }, {
-        username: 'test7',
-        avatar: 'http://pic3.qqmofasi.com/2015/03/23/506_uEpSW2E6H8x2e66H370i_square.jpg',
-        content: 'haha',
-        date: '2012.11.29'
-      }],
+      comments: [],
       currentComment: [],
       currentPage: 0,
-      myComment: ''
+      myComment: '',
+      rating: 0
     }
   },
+  // computed: {
+  //   comments: function () {
+  //     return this.$store.state.movie.detail.comments
+  //   }
+  // },
   created () {
-    let arrayLength = this.comments.length
-    let currentIndex = this.currentPage * 3
-    let iterationLength
-    if (currentIndex + 3 >= arrayLength) {
-      iterationLength = arrayLength % 3
-    } else {
-      iterationLength = 3
+    this.comments = this.$store.state.movie.detail.comments
+    for (let i = 0; i < this.comments.length; i++) {
+      this.comments[i].avatar = '/host' + this.comments[i].avatar
     }
-    for (let i = 0; i < iterationLength; i++) {
-      this.currentComment[i] = this.comments[this.currentPage * 3 + i]
+    console.log(this.comments)
+    for (let i = 0; i < 3; i++) {
+      if (this.currentPage * 3 + i < this.$store.state.movie.detail.comments.length) {
+        this.currentComment.splice(i, 1, this.comments[this.currentPage * 3 + i])
+      } else {
+        this.currentComment.splice(i, 1, {})
+      }
     }
   },
   watch: {
-    currentPage: function () {
-      let arrayLength = this.comments.length
-      let currentIndex = this.currentPage * 3
-      let iterationLength
-      if (currentIndex + 3 >= arrayLength) {
-        iterationLength = arrayLength % 3
-      } else {
-        iterationLength = 3
+    comments: function () {
+      for (let i = 0; i < 3; i++) {
+        if (this.currentPage * 3 + i < this.comments.length) {
+          this.currentComment.splice(i, 1, this.comments[this.currentPage * 3 + i])
+          // this.currentComment[i] = this.comments[this.currentPage * 3 + i]
+        } else {
+          // this.currentComment[i] = {}
+          this.currentComment.splice(i, 1, {})
+        }
       }
-      for (let i = 0; i < iterationLength; i++) {
-        this.currentComment[i] = this.comments[this.currentPage * 3 + i]
+    },
+    currentPage: function () {
+      for (let i = 0; i < 3; i++) {
+        if (this.currentPage * 3 + i < this.comments.length) {
+          this.currentComment.splice(i, 1, this.comments[this.currentPage * 3 + i])
+          // this.currentComment[i] = this.comments[this.currentPage * 3 + i]
+        } else {
+          // this.currentComment[i] = {}
+          this.currentComment.splice(i, 1, {})
+        }
       }
     }
   },
@@ -122,17 +106,38 @@ export default {
       }
     },
     submitComment: function () {
-      if (this.$store.state.auth.user.username) {
-        let myComment = {
-          comment: this.myComment,
-          date: new Date()
+      if (this.myComment !== '') {
+        if (this.$store.state.auth.user.username) {
+          let tempDate = new Date()
+          let uploadComment = {
+            username: this.$store.state.auth.user.username,
+            movieID: this.$route.params.movieId,
+            rating: this.rating,
+            comment: this.myComment,
+            date: tempDate.getFullYear() + '-' + tempDate.getMonth() + '-' + tempDate.getDay()
+          }
+          let postData = {
+            data: JSON.stringify(uploadComment)
+          }
+          var that = this
+          axios.post('/host/api/comments', DataProcess.genFormData(postData)).then(res => {
+            console.log(res)
+            let myComment = {
+              username: this.$store.state.auth.user.username,
+              avatar: '/host' + this.$store.state.auth.user.avatar,
+              content: this.myComment,
+              date: uploadComment.date
+            }
+            if (res.status === 200) {
+              that.$store.dispatch('UPDATE_MOVIE_COMMENTS', myComment)
+              that.myComment = ''
+            } else {
+              alert('submit error')
+            }
+          })
+        } else {
+          this.$router.push('/signin')
         }
-        console.log(myComment)
-        axios.post('', DataProcess(myComment)).then(res => {
-
-        })
-      } else {
-        this.$router.push('/signin')
       }
     }
   }
@@ -201,8 +206,14 @@ export default {
   margin-bottom 2px
 }
 
-.submit-button {
-  text-align right
+.rating {
+  width 49%
+  display inline-block
 }
 
+.submit-button {
+  width 49%
+  display inline-block
+  text-align right
+}
 </style>
