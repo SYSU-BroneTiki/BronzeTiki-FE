@@ -17,7 +17,7 @@
             {{detail.name}}
           </h1>
           <p class="rating-wrap">
-              <el-rate class="rating" v-model="detail.rating" disabled show-score text-color="#000"></el-rate>
+              <el-rate class="rating" v-model="detail.rating" disabled text-color="#000"></el-rate>
               <!-- <span>(9000人评分)</span> -->
           </p>
           <p class="meta">

@@ -134,12 +134,12 @@ export default {
       this.passForm.payPassword = ''
     },
     confirmPass () {
-      let payInfo = JSON.stringify({
-        'data': {
+      let payInfo = {
+        'data': JSON.stringify({
           'orderId': this.orderId,
           'password': this.password
-        }
-      })
+        })
+      }
       let payload = {
         'orderId': this.orderId,
         'payInfo': DataProcess.genFormData(payInfo)
@@ -155,13 +155,18 @@ export default {
         this.$router.push('/order-list')
       }
       if (res.ret && !res.status) {
-        switch (res.errorMessage) {
-          case 3001:
+        console.log(res.message)
+        switch (res.message) {
+          case 'Invalid paypassword':
             alert('密码错误')
             break
-          case 3002:
-            alert('订单已失效，返回首页')
+          case 'Money not enough':
+            alert('余额不足，支付失败')
             this.$router.push('/')
+            break
+          case 'Already payed':
+            alert('请勿重复支付')
+            this.$router.push('/order-list')
             break
           default:
             alert('未知错误')

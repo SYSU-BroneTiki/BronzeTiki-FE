@@ -7,7 +7,7 @@
             <el-col :span="5" class="movie-post">
               <img :src="movie.poster" alt="movie-img">
             </el-col>
-            <el-col :span="15" class="movie-detail">
+            <el-col :span="16" class="movie-detail">
               <el-row class="movie-title">{{movie.name}}</el-row>
               <el-row class="movie-rating">
                 <el-rate v-model="movie.rating" disabled></el-rate>
@@ -20,7 +20,7 @@
               <el-row class="movie-duration">时长：{{movie.duration}}分钟</el-row>
               <el-row class="movie-showtime">{{movie.showtime}}大陆上映</el-row>
             </el-col>
-            <el-col :span="4" class="movie-state">
+            <el-col :span="3" class="movie-state">
               <div class="state" v-if="movie.status">可预订</div>
             </el-col>
           </el-row>
@@ -68,7 +68,7 @@ export default {
             .state
               background-color: #00b6f0
               color: #fff
-              font-size: 0.3rem
+              font-size: 0.2rem
               line-height: 0.5rem
               text-align: center
               border-radius: 0.06rem

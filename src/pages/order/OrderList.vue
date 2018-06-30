@@ -73,13 +73,11 @@ export default {
   methods: {
     handleGetListSucc (res) {
       this.orderList = res.data.orders
-      console.log('订单列表获取', this.orderList)
     },
     payOrder (orderId) {
       this.$store.dispatch('GET_ORDER', orderId).then(this.handleJump)
     },
     handleJump () {
-      console.log(this.$store.state.order.orderInfo)
       if (this.orderStatus !== 200) {
         alert(this.errorMsg, '获取订单失败，刷新重试')
         this.$router.push('/order-list')
