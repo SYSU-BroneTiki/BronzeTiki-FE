@@ -4,7 +4,7 @@
     <div class="avatar-uploader">
       <el-upload
         class="el-upload"
-        action="/host/api/users/avatar"
+        action="/api/users/avatar"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
@@ -24,7 +24,7 @@ export default {
   methods: {
     handleAvatarSuccess (res, file) {
       console.log(res)
-      let url = '/host' + res.avatar
+      let url = 'http://119.29.13.173:8080' + res.avatar
       let avatar = ['avatar', url]
       this.$store.commit('UPDATE_USER', avatar)
       this.$router.go(-1)

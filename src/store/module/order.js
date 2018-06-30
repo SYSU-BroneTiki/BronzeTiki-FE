@@ -12,7 +12,7 @@ export default {
   actions: {
     GET_ORDERLIST ({ commit }) {
       // return axios.get('/static/mock/order-list.json').then(res => {
-      return axios.get('/host/api/orders').then(res => {
+      return axios.get('/api/orders').then(res => {
         if (res.status === 200) {
           return res.data
         }
@@ -20,7 +20,7 @@ export default {
     },
     GET_ORDER ({ commit }, orderId) {
       // return axios.get('/static/mock/order.json').then(res => {
-      return axios.get('/host/api/orders/' + orderId).then(res => {
+      return axios.get('/api/orders/' + orderId).then(res => {
         if (res.status === 200) {
           commit('SET_ORDER', res.data)
         } else {
@@ -29,7 +29,7 @@ export default {
       })
     },
     CREATE_ORDER ({ commit }, payload) {
-      return axios.post('/host/api/orders', payload).then(res => {
+      return axios.post('/api/orders', payload).then(res => {
         if (res.status === 200) {
           commit('SET_ORDER', res.data)
         }
@@ -37,7 +37,7 @@ export default {
     },
     PAY_ORDER ({ commit }, payload) {
       // return axios.get('/static/mock/pay-result.json').then(res => {
-      return axios.patch('/host/api/orders/' + payload.orderId, payload.payInfo).then(res => {
+      return axios.patch('/api/orders/' + payload.orderId, payload.payInfo).then(res => {
         if (res.status === 200) {
           return res.data
         }

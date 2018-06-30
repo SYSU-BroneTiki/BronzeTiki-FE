@@ -120,7 +120,7 @@ export default {
             data: JSON.stringify(uploadComment)
           }
           var that = this
-          axios.post('/host/api/comments', DataProcess.genFormData(postData)).then(res => {
+          axios.post('/api/comments', DataProcess.genFormData(postData)).then(res => {
             console.log(res)
             let myComment = {
               username: this.$store.state.auth.user.username,

@@ -28,6 +28,7 @@ export default {
     },
     DELETE_USER (state) {
       state.user = ''
+      localStorage.removeItem('user')
     },
     // data type is key-value
     UPDATE_USER (state, data) {
@@ -37,7 +38,7 @@ export default {
   actions: {
     // 获取用户的信息，在服务端判断是否登陆
     GET_USER_INFO ({commit}) {
-      return axios.get('/host/api/state').then((res) => {
+      return axios.get('/api/state').then((res) => {
         if (res.status === 200 || res.data.message === 'Online') {
           commit('SET_USER', res.data)
         } else {
@@ -51,7 +52,7 @@ export default {
     //   })
     // },
     SIGN_OUT ({commit}) {
-      return axios.delete('/host/api/users/login').then(res => {
+      return axios.delete('/api/users/login').then(res => {
         commit('DELETE_USER')
       })
     }
