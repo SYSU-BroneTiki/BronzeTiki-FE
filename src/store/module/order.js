@@ -22,6 +22,7 @@ export default {
       // return axios.get('/static/mock/order.json').then(res => {
       return axios.get('/host/api/orders/' + orderId).then(res => {
         if (res.status === 200) {
+          console.log('订单数据', res.data)
           commit('SET_ORDER', res.data)
         } else {
           commit('SET_ORDER', {})
@@ -37,8 +38,9 @@ export default {
     },
     PAY_ORDER ({ commit }, payload) {
       // return axios.get('/static/mock/pay-result.json').then(res => {
-      return axios.patch('/host/api/orders/' + payload.orderId).then(res => {
+      return axios.patch('/host/api/orders/' + payload.orderId, payload.payInfo).then(res => {
         if (res.status === 200) {
+          console.log(res)
           return res.data
         }
       })

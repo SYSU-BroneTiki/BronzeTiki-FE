@@ -33,14 +33,14 @@
               </div>
             </el-row>
           </el-col>
-          <el-col :span="5" class="pay-btn-wrap" v-show="!order.isPayed">
+          <el-col :span="5" class="pay-btn-wrap" v-show="order.isValid && !order.isPayed">
             <div class="pay-btn" @click="payOrder(order.orderId)">去付款</div>
           </el-col>
         </el-row>
         <el-row class="item-state">
           <el-col :span="12">总价: <span class="price">￥70.00</span></el-col>
           <el-col :span="12" class="state unpaid" v-show="order.isValid && !order.isPayed">未支付</el-col>
-          <el-col :span="12" class="state paid" v-show="order.isPayed">已支付</el-col>
+          <el-col :span="12" class="state paid" v-show="order.isValid && order.isPayed">已支付</el-col>
           <el-col :span="12" class="state unvalid" v-show="!order.isValid">已失效</el-col>
         </el-row>
         <!-- <el-row class="count-down">支付剩余时间: 09:00</el-row> -->
@@ -62,6 +62,9 @@ export default {
   computed: {
     orderStatus () {
       return this.$store.state.order.orderInfo.status
+    },
+    errorMsg () {
+      return this.$store.state.order.orderInfo.message
     }
   },
   components: {
@@ -73,11 +76,12 @@ export default {
       console.log('订单列表获取', this.orderList)
     },
     payOrder (orderId) {
-      this.$store.dispatch('GET_ORDER').then(this.handleJump)
+      this.$store.dispatch('GET_ORDER', orderId).then(this.handleJump)
     },
     handleJump () {
-      if (!this.orderStatus) {
-        alert('获取订单失败，刷新重试')
+      console.log(this.$store.state.order.orderInfo)
+      if (this.orderStatus !== 200) {
+        alert(this.errorMsg, '获取订单失败，刷新重试')
         this.$router.push('/order-list')
       } else {
         this.$router.push('/order-confirm')

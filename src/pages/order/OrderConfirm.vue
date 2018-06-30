@@ -22,7 +22,7 @@
         <el-row class="movie-time">{{ movieBegin }}</el-row>
         <el-row class="hall">{{ hall }}号厅</el-row>
         <el-row class="seats">
-          <div class="seat" v-for="(item, index) in selectedSeats" :key="index">{{ item[0] }}排{{ item[1] }}座</div>
+          <div class="seat" v-for="(item, index) in selectedSeats" :key="index">{{ item[0]+1 }}排{{ item[1]+1 }}座</div>
         </el-row>
       </section>
       <section class="contract-way">
@@ -40,7 +40,7 @@
           <el-col :span="16" class="price-total">￥{{ total }}</el-col>
         </el-row>
       </section>
-      <footer class="price-confirm" v-show="!isPayed">
+      <footer class="price-confirm" v-show="isValid && !isPayed">
         <el-row>
           <el-col :span="12" class="remark">不支持退签、改票</el-col>
           <el-col :span="12">应付<span class="pay-price">￥{{ total }}</span></el-col>
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-// import DataProcess from '../../common/utils/DataProcess'
+import DataProcess from '../../common/utils/DataProcess'
 export default {
   name: 'OrderConfirm',
   data () {
@@ -121,6 +121,9 @@ export default {
     },
     isPayed () {
       return this.orderInfo.data.isPayed
+    },
+    isValid () {
+      return this.orderInfo.data.isValid
     }
   },
   methods: {
@@ -131,16 +134,19 @@ export default {
       this.passForm.payPassword = ''
     },
     confirmPass () {
-      let orderId = this.$route.params.orderId
-      let tData = {
+      let payInfo = JSON.stringify({
         'data': {
-          'orderId': orderId,
+          'orderId': this.orderId,
           'password': this.password
         }
+      })
+      let payload = {
+        'orderId': this.orderId,
+        'payInfo': DataProcess.genFormData(payInfo)
       }
       this.clearForm()
       this.showPasswardInputArea = false
-      this.$store.dispatch('PAY_ORDER', tData).then(this.isPaySucc)
+      this.$store.dispatch('PAY_ORDER', payload).then(this.isPaySucc)
     },
     isPaySucc (res) {
       // console.log(res)
