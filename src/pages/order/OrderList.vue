@@ -38,7 +38,7 @@
           </el-col>
         </el-row>
         <el-row class="item-state">
-          <el-col :span="12">总价: <span class="price">￥70.00</span></el-col>
+          <el-col :span="12">总价: <span class="price">￥{{order.total}}</span></el-col>
           <el-col :span="12" class="state unpaid" v-show="order.isValid && !order.isPayed">未支付</el-col>
           <el-col :span="12" class="state paid" v-show="order.isValid && order.isPayed">已支付</el-col>
           <el-col :span="12" class="state unvalid" v-show="!order.isValid">已失效</el-col>
@@ -73,6 +73,7 @@ export default {
   methods: {
     handleGetListSucc (res) {
       this.orderList = res.data.orders
+      console.log(this.orderList)
     },
     payOrder (orderId) {
       this.$store.dispatch('GET_ORDER', orderId).then(this.handleJump)

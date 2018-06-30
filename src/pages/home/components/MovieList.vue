@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="container">
     <div class="item-list">
@@ -10,7 +11,7 @@
             <el-col :span="16" class="movie-detail">
               <el-row class="movie-title">{{movie.name}}</el-row>
               <el-row class="movie-rating">
-                <el-rate v-model="movie.rating" disabled></el-rate>
+                <el-rate v-model="movie.rating / 2" disabled></el-rate>
               </el-row>
               <el-row class="movie-classification">
                 <!-- <span>{{movie.classification}}</span> -->
