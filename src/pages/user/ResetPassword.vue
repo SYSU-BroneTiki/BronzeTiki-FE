@@ -102,7 +102,7 @@ export default {
             oldPassword: this.ruleForm.oldPassword,
             newPassword: this.ruleForm.newPassword
           }
-          axios.post('/host/api/users/password', DataProcess.genFormData(user)).then(res => {
+          axios.post('/api/users/password', DataProcess.genFormData(user)).then(res => {
             let message = res.data.message
             switch (message) {
               case 'Invalid old password':

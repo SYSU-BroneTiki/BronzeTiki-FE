@@ -85,7 +85,7 @@ export default {
             password: this.ruleForm2.pass
           }
           var that = this
-          axios.post('/host/api/users/login', DataProcess.genFormData(userInfo)).then(function (res) {
+          axios.post('/api/users/login', DataProcess.genFormData(userInfo)).then(function (res) {
             let message = res.data.message
             switch (message) {
               case 'Invalid password':

@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     submitSearchContent: function () {
-      axios.get('/host/api/search?query=' + this.searchContent).then(res => {
+      axios.get('/api/search?query=' + this.searchContent).then(res => {
         console.log(res)
         if (res.status === 200) {
           this.searchedMovies = res.data.movies

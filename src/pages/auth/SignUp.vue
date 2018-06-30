@@ -101,7 +101,7 @@ export default {
             password: this.ruleForm2.pass
           }
           var that = this
-          axios.post('/host/api/users/register', DataProcess.genFormData(userInfo)).then(function (res) {
+          axios.post('/api/users/register', DataProcess.genFormData(userInfo)).then(function (res) {
             let message = res.data.message
             // register successfully
             switch (message) {

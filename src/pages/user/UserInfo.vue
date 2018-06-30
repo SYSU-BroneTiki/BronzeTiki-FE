@@ -5,7 +5,7 @@
       <el-row class="user-info">
         <el-col :span="6" class="user-info-item">
             <div class="avatar">
-              <img :src="'/host' + user.avatar">
+              <img :src="'http://119.29.13.173:8080' + user.avatar">
             </div>
         </el-col>
         <el-col :span="14" class="user-info-item">

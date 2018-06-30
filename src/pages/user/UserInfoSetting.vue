@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     avatarUrl () {
-      return '/host' + this.$store.state.auth.user.avatar
+      return 'http://119.29.13.173:8080' + this.$store.state.auth.user.avatar
     }
   },
   created () {
@@ -95,7 +95,7 @@ export default {
             description: this.ruleForm.description
           }
           var that = this
-          axios.patch('/host/api/users/nicknameAndDescription', DataProcess.genFormData(data)).then((res) => {
+          axios.patch('/api/users/nicknameAndDescription', DataProcess.genFormData(data)).then((res) => {
             console.log(res)
             if (res.data.message !== 'Update fail') {
               let nickname = ['nickname', that.ruleForm.nickname]

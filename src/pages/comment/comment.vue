@@ -58,7 +58,7 @@ export default {
   created () {
     this.comments = this.$store.state.movie.detail.comments
     for (let i = 0; i < this.comments.length; i++) {
-      this.comments[i].avatar = '/host' + this.comments[i].avatar
+      this.comments[i].avatar = 'http://119.29.13.173:8080' + this.comments[i].avatar
     }
     console.log(this.comments)
     for (let i = 0; i < 3; i++) {
@@ -120,11 +120,11 @@ export default {
             data: JSON.stringify(uploadComment)
           }
           var that = this
-          axios.post('/host/api/comments', DataProcess.genFormData(postData)).then(res => {
+          axios.post('/api/comments', DataProcess.genFormData(postData)).then(res => {
             console.log(res)
             let myComment = {
               username: this.$store.state.auth.user.username,
-              avatar: '/host' + this.$store.state.auth.user.avatar,
+              avatar: 'http://119.29.13.173:8080' + this.$store.state.auth.user.avatar,
               content: this.myComment,
               date: uploadComment.date
             }

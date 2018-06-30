@@ -102,7 +102,7 @@ export default {
             oldPayPassword: this.ruleForm.oldPayPassword,
             newPayPassword: this.ruleForm.newPayPassword
           }
-          axios.patch('/host/api/users/payPassword', DataProcess.genFormData(user)).then(res => {
+          axios.patch('/api/users/payPassword', DataProcess.genFormData(user)).then(res => {
             let message = res.data.message
             switch (message) {
               case 'Invalid old password':
