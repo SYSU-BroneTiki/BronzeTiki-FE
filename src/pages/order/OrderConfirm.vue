@@ -149,13 +149,11 @@ export default {
       this.$store.dispatch('PAY_ORDER', payload).then(this.isPaySucc)
     },
     isPaySucc (res) {
-      // console.log(res)
       if (res.ret && res.status) {
         alert('支付成功')
         this.$router.push('/order-list')
       }
       if (res.ret && !res.status) {
-        console.log(res.message)
         switch (res.message) {
           case 'Invalid paypassword':
             alert('密码错误')

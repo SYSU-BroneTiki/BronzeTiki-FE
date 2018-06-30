@@ -1,3 +1,4 @@
+<!-- eslint-disable -->
 <template>
   <div class="container">
     <header class="navbar">
@@ -17,7 +18,7 @@
             {{detail.name}}
           </h1>
           <p class="rating-wrap">
-              <el-rate class="rating" v-model="detail.rating" disabled text-color="#000"></el-rate>
+              <el-rate class="rating" v-model="detail.rating / 2" disabled text-color="#000"></el-rate>
               <!-- <span>(9000人评分)</span> -->
           </p>
           <p class="meta">
@@ -75,6 +76,13 @@ export default {
       if (res.ret && res.data) {
         this.detail = res.data
       }
+    },
+    setRating (rating) {
+      if (rating) {
+        return rating / 2
+      } else {
+        return 0
+      }
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -82,8 +90,6 @@ export default {
   },
   mounted () {
     this.detail = this.$store.state.movie.detail
-    console.log(this.detail)
-    // console.log(this.detail.description)
   }
 }
 </script>
