@@ -73,7 +73,6 @@ export default {
   methods: {
     handleGetListSucc (res) {
       this.orderList = res.data.orders
-      console.log(this.orderList)
     },
     payOrder (orderId) {
       this.$store.dispatch('GET_ORDER', orderId).then(this.handleJump)

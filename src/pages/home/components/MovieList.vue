@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <div class="item-list">
-      <div class="item" v-for="movie in movies" :key="movie.id">
+      <div class="item" v-for="(movie, index) in movies" :key="index">
         <router-link :to="'/detail/'+ movie.id" tag="div">
           <el-row class="item-row">
             <el-col :span="5" class="movie-post">
